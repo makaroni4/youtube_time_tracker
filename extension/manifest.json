@@ -13,12 +13,12 @@
         "https://www.youtube.com/*"
       ],
       "js": [
-        "extension.js"
+        "app.js"
       ],
       "css": [
         "styles/style.css"
       ],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ],
   "permissions": [
