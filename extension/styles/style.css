@@ -1,0 +1,9 @@
+.youtube-time-tracker {
+  font-size: 18px;
+  line-height: 20px;
+  color: #00F;
+}
+
+[dark] .youtube-time-tracker{
+  color: #0F0;
+}

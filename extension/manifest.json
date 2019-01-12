@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Youtube Time Tracker",
+  "description": "Open source extension that tracks time you spent watching Youtube",
+  "version": "0.1",
+  "author": "Anatoli Makarevich",
+  "icons": {
+    "128": "extension_icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "extension.js"
+      ],
+      "css": [
+        "styles/style.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "https://www.youtube.com/",
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "styles/style.css"
+  ]
+}
