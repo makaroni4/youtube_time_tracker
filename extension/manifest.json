@@ -26,6 +26,8 @@
     "storage"
   ],
   "web_accessible_resources": [
-    "styles/style.css"
+    "styles/style.css",
+    "img/stopwatch.svg",
+    "img/stopwatch_white.svg"
   ]
 }

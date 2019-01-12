@@ -1,9 +1,27 @@
 .youtube-time-tracker {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
-  color: #00F;
+  color: #0a0a0a !important;
 }
 
-[dark] .youtube-time-tracker{
-  color: #0F0;
+.youtube-time-tracker__body {
+  display: flex !important;
+}
+
+.youtube-time-tracker__stopwatch-icon {
+  width: 15px !important;
+  height: 20px;
+  margin-right: 5px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/stopwatch.svg") !important;
+}
+
+[dark] .youtube-time-tracker {
+  color: #FFF !important;
+}
+
+[dark] .youtube-time-tracker__stopwatch-icon {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/stopwatch_white.svg") !important;
 }

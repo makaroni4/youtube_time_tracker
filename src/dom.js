@@ -3,17 +3,28 @@ import { readData } from './tracker';
 
 const timerBlock = function() {
   const logo = document.getElementById("logo");
-  let timer = document.getElementById("youtube-time-tracker-timer");
+  let timer = document.getElementById("youtube-time-tracker");
 
   if(!timer) {
     timer = document.createElement("div");
-    timer.id = "youtube-time-tracker-timer";
+
+    timer.innerHTML = `
+      <div class="youtube-time-tracker__body">
+        <div class="youtube-time-tracker__stopwatch-icon">
+        </div>
+
+        <div class="youtube-time-tracker__time">
+        </div>
+      </div>
+    `.trim();
+
+    timer.id = "youtube-time-tracker";
     timer.className = "youtube-time-tracker";
 
     logo.parentNode.insertBefore(timer, logo.nextSibling);
   }
 
-  return timer;
+  return timer.querySelector(".youtube-time-tracker__time");
 }
 
 export const showTimer = function(timerData) {
