@@ -1,5 +1,4 @@
 import { incrementTime } from './tracker';
-import { throttle, formatTime } from './helper_functions';
 import { showTimer } from './dom';
 
 showTimer();
