@@ -1,4 +1,4 @@
-import { todayDate, yesterdayDate, thisMonth, lastMonth } from './helper_functions';
+import { todayDate, yesterdayDate, thisMonth, lastMonth, log } from './helper_functions';
 
 const TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
