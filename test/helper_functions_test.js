@@ -1,4 +1,4 @@
-const assert = require('assert');
+import { expect } from 'chai';
 
 import { formatTime } from '../src/helper_functions';
 
@@ -6,17 +6,17 @@ describe('formatTime', () => {
   context('when data for yesterday is absent', () => {
     context('when todays time is more than an hour', () => {
       it('shows only number of minutes', () => {
-        assert.equal(formatTime(1), "1min");
-        assert.equal(formatTime(35.6), "35min");
-        assert.equal(formatTime(59), "59min");
+        expect(formatTime(1)).to.equal("1min");
+        expect(formatTime(35.6)).to.equal("35min");
+        expect(formatTime(59)).to.equal("59min");
       });
     });
 
     context('when todays time is less than an hour', () => {
       it('shows number of hours and minutes', () => {
-        assert.equal(formatTime(61), "1h1min");
-        assert.equal(formatTime(95.4), "1h35min");
-        assert.equal(formatTime(119), "1h59min");
+        expect(formatTime(61)).to.equal("1h1min");
+        expect(formatTime(95.4)).to.equal("1h35min");
+        expect(formatTime(119)).to.equal("1h59min");
       });
     });
   });
@@ -24,16 +24,16 @@ describe('formatTime', () => {
   context('when data for yesterday is present', () => {
     context('when todays timer is less than 10 minutes', () => {
       it('does not show an uplift', () => {
-        assert.equal(formatTime(5, 10), "5min");
+        expect(formatTime(5, 10)).to.equal("5min");
       })
     });
 
     context('when todays timer is more than 10 minutes', () => {
       it('shows an uplift', () => {
-        assert.equal(formatTime(15, 30), "15min -50%");
-        assert.equal(formatTime(24, 16), "24min +50%");
-        assert.equal(formatTime(75, 60), "1h15min +25%");
-        assert.equal(formatTime(75, 90), "1h15min -17%");
+        expect(formatTime(15, 30)).to.equal("15min -50%");
+        expect(formatTime(24, 16)).to.equal("24min +50%");
+        expect(formatTime(75, 60)).to.equal("1h15min +25%");
+        expect(formatTime(75, 90)).to.equal("1h15min -17%");
       })
     });
   });
