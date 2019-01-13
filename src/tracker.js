@@ -31,6 +31,10 @@ export const readData = function(callback) {
 
 
 export const incrementTime = function(increment, callback) {
+  if (document.visibilityState === "hidden") {
+    return;
+  }
+
   readData(function(timer) {
     const today = todayDate();
 
