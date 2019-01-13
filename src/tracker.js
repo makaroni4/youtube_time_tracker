@@ -1,4 +1,4 @@
-import { todayDate, yesterdayDate } from './helper_functions';
+import { todayDate, yesterdayDate, thisMonth, lastMonth } from './helper_functions';
 
 const TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
@@ -19,16 +19,15 @@ export const readData = function(callback) {
     if(timer) {
       callback(timer);
     } else {
-      const today = new Date().toISOString().slice(0, 10);
-
       let result = {};
-      result[today] = 0;
+
+      result[todayDate()] = 0;
+      result[thisMonth()] = 0;
 
       callback(result);
     }
   });
 }
-
 
 export const incrementTime = function(increment, callback) {
   if (document.visibilityState === "hidden") {
@@ -37,11 +36,18 @@ export const incrementTime = function(increment, callback) {
 
   readData(function(timer) {
     const today = todayDate();
+    const month = thisMonth();
 
     if(timer[today]) {
       timer[today] += increment;
     } else {
       timer[today] = increment;
+    }
+
+    if(timer[month]) {
+      timer[month] += increment;
+    } else {
+      timer[month] = increment;
     }
 
     persistData(timer);

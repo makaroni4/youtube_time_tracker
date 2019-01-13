@@ -34,3 +34,17 @@ export const yesterdayDate = function() {
 
   return date.toISOString().slice(0, 10);
 }
+
+export const thisMonth = function() {
+  const date = new Date();
+
+  return date.getMonth() + '-' + date.getFullYear();
+}
+
+export const lastMonth = function() {
+  const date = new Date();
+
+  date.setMonth(date.getMonth() - 1);
+
+  return date.getMonth() + '-' + date.getFullYear();
+}

@@ -1,8 +1,8 @@
 import { incrementTime } from './tracker';
-import { showTimer } from './dom';
+import { renderTimer } from './dom';
 
-showTimer();
+renderTimer();
 
 setInterval(function() {
-  incrementTime(0.1, showTimer);
+  incrementTime(0.1, renderTimer);
 }, 6000);

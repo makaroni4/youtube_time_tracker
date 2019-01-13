@@ -1,4 +1,4 @@
-import { todayDate, yesterdayDate, formatTime } from './helper_functions';
+import { todayDate, yesterdayDate, thisMonth, lastMonth, formatTime } from './helper_functions';
 import { readData } from './tracker';
 
 const timerBlock = function() {
@@ -15,6 +15,9 @@ const timerBlock = function() {
 
         <div class="youtube-time-tracker__time">
         </div>
+
+        <div class="youtube-time-tracker__stats">
+        </div>
       </div>
     `.trim();
 
@@ -24,23 +27,29 @@ const timerBlock = function() {
     logo.parentNode.insertBefore(timer, logo.nextSibling);
   }
 
-  return timer.querySelector(".youtube-time-tracker__time");
+  return timer;
 }
 
-export const showTimer = function(timerData) {
+export const renderTimer = function(timerData) {
   let logo = document.getElementById("logo");
 
   if(logo) {
     const timer = timerBlock();
+    const timeBlock = timer.querySelector(".youtube-time-tracker__time");
+    const statsBlock = timer.querySelector(".youtube-time-tracker__stats");
 
     const today = todayDate();
     const yesterday = yesterdayDate();
+    const month = thisMonth();
+    const prevMonth = thisMonth();
 
     if(timerData) {
-      timer.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+      timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+      statsBlock.innerHTML = "This month: " + formatTime(timerData[month]);
     } else {
       readData(function(timerData) {
-        timer.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+        timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+        statsBlock.innerHTML = "This month: " + formatTime(timerData[month]);
       });
     }
   }

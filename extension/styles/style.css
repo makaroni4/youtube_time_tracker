@@ -1,4 +1,10 @@
 .youtube-time-tracker {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 16px;
   line-height: 20px;
   color: #0a0a0a !important;
@@ -6,6 +12,25 @@
 
 .youtube-time-tracker__body {
   display: flex !important;
+}
+
+.youtube-time-tracker__stats {
+  display: none;
+  width: 300px;
+  position: absolute;
+  top: 90%;
+  left: 0;
+  padding: 10px 20px;
+  z-index: 9999;
+
+  background-color: #FFF;
+}
+
+.youtube-time-tracker:hover .youtube-time-tracker__stats {
+  display: block;
+
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
 }
 
 .youtube-time-tracker__stopwatch-icon {
