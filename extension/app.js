@@ -81,11 +81,38 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/app.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./src/app.js":
+/*!********************!*\
+  !*** ./src/app.js ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
+
+var _dom = __webpack_require__(/*! ./dom */ "./src/dom.js");
+
+(0, _dom.renderTimer)();
+
+setInterval(function () {
+  (0, _tracker.incrementTime)(0.1, _dom.renderTimer);
+}, 6000);
+
+/***/ }),
+
+/***/ "./src/dom.js":
+/*!********************!*\
+  !*** ./src/dom.js ***!
+  \********************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,72 +121,62 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.incrementTime = exports.readData = undefined;
+exports.renderTimer = undefined;
 
-var _helper_functions = __webpack_require__(1);
+var _helper_functions = __webpack_require__(/*! ./helper_functions */ "./src/helper_functions.js");
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
 
-var TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
+var timerBlock = function timerBlock() {
+  var logo = document.getElementById("logo");
+  var timer = document.getElementById("youtube-time-tracker");
 
-var persistData = function persistData(timer) {
-  chrome.storage.local.set(_defineProperty({}, TRACKER_STORAGE_KEY, timer), function () {
-    console.log('Youtube Time Tracker is set to:');
-    console.dir(timer);
-  });
-};
+  if (!timer) {
+    timer = document.createElement("div");
 
-var readData = exports.readData = function readData(callback) {
-  chrome.storage.local.get([TRACKER_STORAGE_KEY], function (result) {
-    console.log('Youtube Time Tracker read as:');
-    console.dir(result);
+    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__stats">\n        </div>\n      </div>\n    '.trim();
 
-    var timer = result[TRACKER_STORAGE_KEY];
+    timer.id = "youtube-time-tracker";
+    timer.className = "youtube-time-tracker";
 
-    if (timer) {
-      callback(timer);
-    } else {
-      var _result = {};
-
-      _result[(0, _helper_functions.todayDate)()] = 0;
-      _result[(0, _helper_functions.thisMonth)()] = 0;
-
-      callback(_result);
-    }
-  });
-};
-
-var incrementTime = exports.incrementTime = function incrementTime(increment, callback) {
-  if (document.visibilityState === "hidden") {
-    return;
+    logo.parentNode.insertBefore(timer, logo.nextSibling);
   }
 
-  readData(function (timer) {
+  return timer;
+};
+
+var renderTimer = exports.renderTimer = function renderTimer(timerData) {
+  var logo = document.getElementById("logo");
+
+  if (logo) {
+    var timer = timerBlock();
+    var timeBlock = timer.querySelector(".youtube-time-tracker__time");
+    var statsBlock = timer.querySelector(".youtube-time-tracker__stats");
+
     var today = (0, _helper_functions.todayDate)();
+    var yesterday = (0, _helper_functions.yesterdayDate)();
     var month = (0, _helper_functions.thisMonth)();
+    var prevMonth = (0, _helper_functions.thisMonth)();
 
-    if (timer[today]) {
-      timer[today] += increment;
+    if (timerData) {
+      timeBlock.innerHTML = (0, _helper_functions.formatTime)(timerData[today], timerData[yesterday]);
+      statsBlock.innerHTML = "This month: " + (0, _helper_functions.formatTime)(timerData[month]);
     } else {
-      timer[today] = increment;
+      (0, _tracker.readData)(function (timerData) {
+        timeBlock.innerHTML = (0, _helper_functions.formatTime)(timerData[today], timerData[yesterday]);
+        statsBlock.innerHTML = "This month: " + (0, _helper_functions.formatTime)(timerData[month]);
+      });
     }
-
-    if (timer[month]) {
-      timer[month] += increment;
-    } else {
-      timer[month] = increment;
-    }
-
-    persistData(timer);
-
-    if (callback) {
-      callback(timer);
-    }
-  });
+  }
 };
 
 /***/ }),
-/* 1 */
+
+/***/ "./src/helper_functions.js":
+/*!*********************************!*\
+  !*** ./src/helper_functions.js ***!
+  \*********************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -219,25 +236,19 @@ var lastMonth = exports.lastMonth = function lastMonth() {
   return date.getMonth() + '-' + date.getFullYear();
 };
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _tracker = __webpack_require__(0);
-
-var _dom = __webpack_require__(3);
-
-(0, _dom.renderTimer)();
-
-setInterval(function () {
-  (0, _tracker.incrementTime)(0.1, _dom.renderTimer);
-}, 6000);
+var log = exports.log = function log(output) {
+  if (true) {
+    console.log(output);
+  }
+};
 
 /***/ }),
-/* 3 */
+
+/***/ "./src/tracker.js":
+/*!************************!*\
+  !*** ./src/tracker.js ***!
+  \************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,54 +257,70 @@ setInterval(function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderTimer = undefined;
+exports.incrementTime = exports.readData = undefined;
 
-var _helper_functions = __webpack_require__(1);
+var _helper_functions = __webpack_require__(/*! ./helper_functions */ "./src/helper_functions.js");
 
-var _tracker = __webpack_require__(0);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var timerBlock = function timerBlock() {
-  var logo = document.getElementById("logo");
-  var timer = document.getElementById("youtube-time-tracker");
+var TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
-  if (!timer) {
-    timer = document.createElement("div");
-
-    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__stats">\n        </div>\n      </div>\n    '.trim();
-
-    timer.id = "youtube-time-tracker";
-    timer.className = "youtube-time-tracker";
-
-    logo.parentNode.insertBefore(timer, logo.nextSibling);
-  }
-
-  return timer;
+var persistData = function persistData(timer) {
+  chrome.storage.local.set(_defineProperty({}, TRACKER_STORAGE_KEY, timer), function () {
+    log('Youtube Time Tracker is set to:');
+    log(timer);
+  });
 };
 
-var renderTimer = exports.renderTimer = function renderTimer(timerData) {
-  var logo = document.getElementById("logo");
+var readData = exports.readData = function readData(callback) {
+  chrome.storage.local.get([TRACKER_STORAGE_KEY], function (result) {
+    log('Youtube Time Tracker read as:');
+    log(result);
 
-  if (logo) {
-    var timer = timerBlock();
-    var timeBlock = timer.querySelector(".youtube-time-tracker__time");
-    var statsBlock = timer.querySelector(".youtube-time-tracker__stats");
+    var timer = result[TRACKER_STORAGE_KEY];
 
-    var today = (0, _helper_functions.todayDate)();
-    var yesterday = (0, _helper_functions.yesterdayDate)();
-    var month = (0, _helper_functions.thisMonth)();
-    var prevMonth = (0, _helper_functions.thisMonth)();
-
-    if (timerData) {
-      timeBlock.innerHTML = (0, _helper_functions.formatTime)(timerData[today], timerData[yesterday]);
-      statsBlock.innerHTML = "This month: " + (0, _helper_functions.formatTime)(timerData[month]);
+    if (timer) {
+      callback(timer);
     } else {
-      (0, _tracker.readData)(function (timerData) {
-        timeBlock.innerHTML = (0, _helper_functions.formatTime)(timerData[today], timerData[yesterday]);
-        statsBlock.innerHTML = "This month: " + (0, _helper_functions.formatTime)(timerData[month]);
-      });
+      var _result = {};
+
+      _result[(0, _helper_functions.todayDate)()] = 0;
+      _result[(0, _helper_functions.thisMonth)()] = 0;
+
+      callback(_result);
     }
+  });
+};
+
+var incrementTime = exports.incrementTime = function incrementTime(increment, callback) {
+  if (document.visibilityState === "hidden") {
+    return;
   }
+
+  readData(function (timer) {
+    var today = (0, _helper_functions.todayDate)();
+    var month = (0, _helper_functions.thisMonth)();
+
+    if (timer[today]) {
+      timer[today] += increment;
+    } else {
+      timer[today] = increment;
+    }
+
+    if (timer[month]) {
+      timer[month] += increment;
+    } else {
+      timer[month] = increment;
+    }
+
+    persistData(timer);
+
+    if (callback) {
+      callback(timer);
+    }
+  });
 };
 
 /***/ })
-/******/ ]);
+
+/******/ });

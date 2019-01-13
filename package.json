@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require babel-register test/**/*.js",
-    "start": "node_modules/.bin/webpack src/app.js -o extension/app.js --watch",
-    "build": "node_modules/.bin/webpack src/app.js -o extension/app.js"
+    "start": "node_modules/.bin/webpack src/app.js -o extension/app.js --watch --mode=development",
+    "build": "node_modules/.bin/webpack src/app.js -o extension/app.js --mode=production"
   },
   "repository": {
     "type": "git",
