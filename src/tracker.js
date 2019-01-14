@@ -1,4 +1,14 @@
-import { todayDate, yesterdayDate, thisMonth, lastMonth, log } from './helper_functions';
+import { log } from './helpers/log';
+import {
+  todayDate,
+  yesterdayDate,
+  thisWeek,
+  lastWeek,
+  thisMonth,
+  lastMonth,
+  thisYear,
+  lastYear
+} from './helpers/date';
 
 const TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
@@ -22,7 +32,9 @@ export const readData = function(callback) {
       let result = {};
 
       result[todayDate()] = 0;
+      result[thisWeek()] = 0;
       result[thisMonth()] = 0;
+      result[thisYear()] = 0;
 
       callback(result);
     }
@@ -36,19 +48,17 @@ export const incrementTime = function(increment, callback) {
 
   readData(function(timer) {
     const today = todayDate();
+    const week  = thisWeek();
     const month = thisMonth();
+    const year  = thisYear();
 
-    if(timer[today]) {
-      timer[today] += increment;
-    } else {
-      timer[today] = increment;
-    }
-
-    if(timer[month]) {
-      timer[month] += increment;
-    } else {
-      timer[month] = increment;
-    }
+    [today, week, month, year].forEach(key => {
+      if(timer[key]) {
+        timer[key] += increment;
+      } else {
+        timer[key] = increment;
+      }
+    });
 
     persistData(timer);
 

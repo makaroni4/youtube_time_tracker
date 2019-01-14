@@ -5,7 +5,6 @@ const tk = require('timekeeper');
 
 chai.use(spies);
 
-import { formatTime } from '../src/helper_functions';
 import { readData } from '../src/tracker';
 
 describe('readData', () => {
@@ -25,7 +24,9 @@ describe('readData', () => {
             get: (key, callback) => {
               callback({
                 "youtube_time_tracker_data": {
-                  "0-2019": 100.2,
+                  "2019": 100.2,
+                  "jan-2019": 100.2,
+                  "2-2019": 100.2,
                   "2019-01-13": 100.2
                 }
               });
@@ -33,13 +34,16 @@ describe('readData', () => {
           }
         }
       };
+
       const callback = function(data) {};
       const spy = chai.spy(callback);
 
       readData(spy);
 
       expect(spy).to.have.been.called.with({
-        "0-2019": 100.2,
+        "2019": 100.2,
+        "jan-2019": 100.2,
+        "2-2019": 100.2,
         "2019-01-13": 100.2
       });
     });
@@ -58,13 +62,16 @@ describe('readData', () => {
           }
         }
       };
+
       const callback = function(data) {};
       const spy = chai.spy(callback);
 
       readData(spy);
 
       expect(spy).to.have.been.called.with({
-        "0-2019": 0,
+        "2019": 0,
+        "jan-2019": 0,
+        "2-2019": 0,
         "2019-01-13": 0
       });
     });

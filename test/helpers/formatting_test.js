@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { formatTime } from '../src/helper_functions';
+import { formatTime } from '../../src/helpers/formatting';
 
 describe('formatTime', () => {
   context('when data for yesterday is absent', () => {

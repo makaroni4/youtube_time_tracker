@@ -14,19 +14,46 @@
   display: flex !important;
 }
 
-.youtube-time-tracker__stats {
+.youtube-time-tracker__name {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #0a0a0a !important;
+}
+
+.youtube-time-tracker__popup {
   display: none;
   width: 300px;
   position: absolute;
   top: 90%;
   left: 0;
-  padding: 10px 20px;
+  padding: 20px 20px;
   z-index: 9999;
 
   background-color: #FFF;
 }
 
-.youtube-time-tracker:hover .youtube-time-tracker__stats {
+.youtube-time-tracker__stats {
+  margin-top: 28px;
+  padding: 0;
+
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #0a0a0a !important;
+
+  list-style: none;
+}
+
+.youtube-time-tracker__stats li {
+  display: block;
+}
+
+.youtube-time-tracker__stats li + li {
+  margin-top: 20px;
+}
+
+.youtube-time-tracker:hover .youtube-time-tracker__popup {
   display: block;
 
   border: 1px solid #dbdbdb;

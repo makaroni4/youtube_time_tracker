@@ -4,7 +4,7 @@
   "description": "Chrome Extension that tracks time you spent on Youtube",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require babel-register test/**/*_test.js",
+    "test": "mocha --require babel-register test/**/**/*_test.js",
     "start": "node_modules/.bin/webpack src/app.js -o extension/app.js --watch --mode=development",
     "build": "node_modules/.bin/webpack src/app.js -o extension/app.js --mode=production"
   },

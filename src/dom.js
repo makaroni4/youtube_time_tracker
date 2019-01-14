@@ -1,4 +1,14 @@
-import { todayDate, yesterdayDate, thisMonth, lastMonth, formatTime } from './helper_functions';
+import { formatTime } from './helpers/formatting';
+import {
+  todayDate,
+  yesterdayDate,
+  thisWeek,
+  lastWeek,
+  thisMonth,
+  lastMonth,
+  thisYear,
+  lastYear
+} from './helpers/date';
 import { readData } from './tracker';
 
 const timerBlock = function() {
@@ -16,7 +26,13 @@ const timerBlock = function() {
         <div class="youtube-time-tracker__time">
         </div>
 
-        <div class="youtube-time-tracker__stats">
+        <div class="youtube-time-tracker__popup">
+          <div class="youtube-time-tracker__name">
+            Youtube Time Tracker
+          </div>
+
+          <ul class="youtube-time-tracker__stats">
+          </ul>
         </div>
       </div>
     `.trim();
@@ -30,6 +46,34 @@ const timerBlock = function() {
   return timer;
 }
 
+const statsContent = function(timerData) {
+  const today = todayDate();
+  const week = thisWeek();
+  const month = thisMonth();
+  const year = thisYear();
+
+  const yesterday = yesterdayDate();
+  const prevWeek = lastWeek();
+  const prevMonth = lastMonth();
+  const prevYear = lastYear();
+
+  let stats = "";
+
+  if(timerData[week]) {
+    stats += "<li>This week: " + formatTime(timerData[week]) + "</li>";
+  }
+
+  if(timerData[month]) {
+    stats += "<li>This month: " + formatTime(timerData[month]) + "</li>";
+  }
+
+  if(timerData[year]) {
+    stats += "<li>This year: " + formatTime(timerData[year]) + "</li>";
+  }
+
+  return stats;
+}
+
 export const renderTimer = function(timerData) {
   let logo = document.getElementById("logo");
 
@@ -40,16 +84,14 @@ export const renderTimer = function(timerData) {
 
     const today = todayDate();
     const yesterday = yesterdayDate();
-    const month = thisMonth();
-    const prevMonth = thisMonth();
 
     if(timerData) {
       timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
-      statsBlock.innerHTML = "This month: " + formatTime(timerData[month]);
+      statsBlock.innerHTML = statsContent(timerData);
     } else {
       readData(function(timerData) {
         timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
-        statsBlock.innerHTML = "This month: " + formatTime(timerData[month]);
+        statsBlock.innerHTML = statsContent(timerData);
       });
     }
   }

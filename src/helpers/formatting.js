@@ -23,34 +23,3 @@ export const formatTime = function(minutesToday, minutesYesterday) {
   return result;
 }
 
-export const todayDate = function() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-export const yesterdayDate = function() {
-  let date = new Date();
-
-  date.setDate(date.getDate() - 1);
-
-  return date.toISOString().slice(0, 10);
-}
-
-export const thisMonth = function() {
-  const date = new Date();
-
-  return date.getMonth() + '-' + date.getFullYear();
-}
-
-export const lastMonth = function() {
-  const date = new Date();
-
-  date.setMonth(date.getMonth() - 1);
-
-  return date.getMonth() + '-' + date.getFullYear();
-}
-
-export const log = function(output) {
-  if(process.env.NODE_ENV === "development") {
-    console.log(output);
-  }
-}
