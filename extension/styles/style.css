@@ -23,6 +23,7 @@
 
 .youtube-time-tracker__popup {
   display: none;
+  box-sizing: border-box;
   width: 300px;
   position: absolute;
   top: 90%;
@@ -31,6 +32,13 @@
   z-index: 9999;
 
   background-color: #FFF;
+}
+
+.youtube-time-tracker:hover .youtube-time-tracker__popup {
+  display: block;
+
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
 }
 
 .youtube-time-tracker__stats {
@@ -53,11 +61,21 @@
   margin-top: 20px;
 }
 
-.youtube-time-tracker:hover .youtube-time-tracker__popup {
-  display: block;
+.youtube-time-tracker__links {
+  text-align: right;
+}
 
-  border: 1px solid #dbdbdb;
-  border-radius: 2px;
+.youtube-time-tracker__link {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #606060 !important;
+
+  text-decoration: underline;
+}
+
+.youtube-time-tracker__link + .youtube-time-tracker__link {
+  margin-left: 10px;
 }
 
 .youtube-time-tracker__stopwatch-icon {

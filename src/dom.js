@@ -33,6 +33,20 @@ const timerBlock = function() {
 
           <ul class="youtube-time-tracker__stats">
           </ul>
+
+          <div class="youtube-time-tracker__links">
+            <a class="youtube-time-tracker__link"
+               href="https://github.com/makaroni4/youtube_time_tracker"
+               target="_blank">
+              Source code
+            </a>
+
+            <a class="youtube-time-tracker__link"
+               href="http://bit.ly/YTT-feedback"
+               starget="_blank">
+              Feedback
+            </a>
+          </div>
         </div>
       </div>
     `.trim();

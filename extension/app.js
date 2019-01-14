@@ -136,7 +136,7 @@ var timerBlock = function timerBlock() {
   if (!timer) {
     timer = document.createElement("div");
 
-    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__name">\n            Youtube Time Tracker\n          </div>\n\n          <ul class="youtube-time-tracker__stats">\n          </ul>\n        </div>\n      </div>\n    '.trim();
+    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__name">\n            Youtube Time Tracker\n          </div>\n\n          <ul class="youtube-time-tracker__stats">\n          </ul>\n\n          <div class="youtube-time-tracker__links">\n            <a class="youtube-time-tracker__link"\n               href="https://github.com/makaroni4/youtube_time_tracker"\n               target="_blank">\n              Source code\n            </a>\n\n            <a class="youtube-time-tracker__link"\n               href="http://bit.ly/YTT-feedback"\n               starget="_blank">\n              Feedback\n            </a>\n          </div>\n        </div>\n      </div>\n    '.trim();
 
     timer.id = "youtube-time-tracker";
     timer.className = "youtube-time-tracker";
