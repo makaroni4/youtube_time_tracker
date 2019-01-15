@@ -28,10 +28,13 @@
   position: absolute;
   top: 90%;
   left: 0;
-  padding: 20px 20px;
   z-index: 9999;
 
   background-color: #FFF;
+}
+
+.youtube-time-tracker__popup-body {
+  padding: 20px 20px;
 }
 
 .youtube-time-tracker:hover .youtube-time-tracker__popup {
@@ -86,6 +89,74 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("chrome-extension://__MSG_@@extension_id__/img/stopwatch.svg") !important;
+}
+
+.youtube-time-tracker__rating {
+  display: none;
+  padding: 20px;
+
+  border-top: 1px solid #dbdbdb;
+}
+
+.youtube-time-tracker__rating--active {
+  display: block;
+}
+
+.youtube-time-tracker__rating-description {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #0a0a0a !important;
+}
+
+.youtube-time-tracker__rating-cta {
+  margin-top: 20px;
+}
+
+.youtube-time-tracker__rating-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px 10px 45px;
+
+  border-radius: 2px;
+
+  background-color: #FD1A20;
+
+  color: #FFF;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.youtube-time-tracker__rating-button:hover {
+  background-color: #e4090f;
+}
+
+.youtube-time-tracker__rating-button:before {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  height: 20px;
+  width: 20px;
+  margin-top: -12px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/thumbs_up.svg") !important;
+
+  content: "";
+}
+
+.youtube-time-tracker__rating-later {
+  margin-left: 15px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #606060 !important;
+  text-decoration: underline;
+
+  cursor: pointer;
 }
 
 [dark] .youtube-time-tracker {

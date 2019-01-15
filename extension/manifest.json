@@ -28,6 +28,7 @@
   "web_accessible_resources": [
     "styles/style.css",
     "img/stopwatch.svg",
-    "img/stopwatch_white.svg"
+    "img/stopwatch_white.svg",
+    "img/thumbs_up.svg"
   ]
 }

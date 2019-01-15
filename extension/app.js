@@ -129,6 +129,8 @@ var _date = __webpack_require__(/*! ./helpers/date */ "./src/helpers/date.js");
 
 var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
 
+var _cookie = __webpack_require__(/*! ./helpers/cookie */ "./src/helpers/cookie.js");
+
 var timerBlock = function timerBlock() {
   var logo = document.getElementById("logo");
   var timer = document.getElementById("youtube-time-tracker");
@@ -136,12 +138,28 @@ var timerBlock = function timerBlock() {
   if (!timer) {
     timer = document.createElement("div");
 
-    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__name">\n            Youtube Time Tracker\n          </div>\n\n          <ul class="youtube-time-tracker__stats">\n          </ul>\n\n          <div class="youtube-time-tracker__links">\n            <a class="youtube-time-tracker__link"\n               href="https://github.com/makaroni4/youtube_time_tracker"\n               target="_blank">\n              Source code\n            </a>\n\n            <a class="youtube-time-tracker__link"\n               href="http://bit.ly/YTT-feedback"\n               starget="_blank">\n              Feedback\n            </a>\n          </div>\n        </div>\n      </div>\n    '.trim();
+    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__popup-body">\n            <div class="youtube-time-tracker__name">\n              Youtube Time Tracker\n            </div>\n\n            <ul class="youtube-time-tracker__stats">\n            </ul>\n\n            <div class="youtube-time-tracker__links">\n              <a class="youtube-time-tracker__link"\n                href="https://github.com/makaroni4/youtube_time_tracker"\n                target="_blank">\n                Source code\n              </a>\n\n              <a class="youtube-time-tracker__link"\n                href="http://bit.ly/YTT-feedback"\n                starget="_blank">\n                Feedback\n              </a>\n            </div>\n          </div>\n\n          <div class="youtube-time-tracker__rating">\n            <div class="youtube-time-tracker__rating-description">\n              If you like the extension \u2013 please, spread the word & rate it in Chrome Web Store:\n            </div>\n\n            <div class="youtube-time-tracker__rating-cta">\n              <a href="http://bit.ly/rate-YTT"\n                 class="youtube-time-tracker__rating-button"\n                 target="_blank">\n                RATE IT\n              </a>\n\n              <a href="#" class="youtube-time-tracker__rating-later js-hide-ytt-rating">\n                Later\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    '.trim();
 
     timer.id = "youtube-time-tracker";
     timer.className = "youtube-time-tracker";
 
     logo.parentNode.insertBefore(timer, logo.nextSibling);
+
+    var ratingBlock = document.querySelector(".youtube-time-tracker__rating");
+    var closeLink = ratingBlock.querySelector(".js-hide-ytt-rating");
+    var ratingCookie = "ytt-rating";
+
+    if (!(0, _cookie.getCookie)(ratingCookie)) {
+      ratingBlock.classList.add("youtube-time-tracker__rating--active");
+    }
+
+    closeLink.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      ratingBlock.remove();
+
+      (0, _cookie.setCookie)(ratingCookie, true, 180);
+    });
   }
 
   return timer;
@@ -196,6 +214,32 @@ var renderTimer = exports.renderTimer = function renderTimer(timerData) {
       });
     }
   }
+};
+
+/***/ }),
+
+/***/ "./src/helpers/cookie.js":
+/*!*******************************!*\
+  !*** ./src/helpers/cookie.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var setCookie = exports.setCookie = function setCookie(name, value, days) {
+  var d = new Date();
+  d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
+  document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+};
+
+var getCookie = exports.getCookie = function getCookie(name) {
+  var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+  return v ? v[2] : null;
 };
 
 /***/ }),

@@ -10,6 +10,7 @@ import {
   lastYear
 } from './helpers/date';
 import { readData } from './tracker';
+import { getCookie, setCookie } from './helpers/cookie';
 
 const timerBlock = function() {
   const logo = document.getElementById("logo");
@@ -27,25 +28,45 @@ const timerBlock = function() {
         </div>
 
         <div class="youtube-time-tracker__popup">
-          <div class="youtube-time-tracker__name">
-            Youtube Time Tracker
+          <div class="youtube-time-tracker__popup-body">
+            <div class="youtube-time-tracker__name">
+              Youtube Time Tracker
+            </div>
+
+            <ul class="youtube-time-tracker__stats">
+            </ul>
+
+            <div class="youtube-time-tracker__links">
+              <a class="youtube-time-tracker__link"
+                href="https://github.com/makaroni4/youtube_time_tracker"
+                target="_blank">
+                Source code
+              </a>
+
+              <a class="youtube-time-tracker__link"
+                href="http://bit.ly/YTT-feedback"
+                starget="_blank">
+                Feedback
+              </a>
+            </div>
           </div>
 
-          <ul class="youtube-time-tracker__stats">
-          </ul>
+          <div class="youtube-time-tracker__rating">
+            <div class="youtube-time-tracker__rating-description">
+              If you like the extension – please, spread the word & rate it in Chrome Web Store:
+            </div>
 
-          <div class="youtube-time-tracker__links">
-            <a class="youtube-time-tracker__link"
-               href="https://github.com/makaroni4/youtube_time_tracker"
-               target="_blank">
-              Source code
-            </a>
+            <div class="youtube-time-tracker__rating-cta">
+              <a href="http://bit.ly/rate-YTT"
+                 class="youtube-time-tracker__rating-button"
+                 target="_blank">
+                RATE IT
+              </a>
 
-            <a class="youtube-time-tracker__link"
-               href="http://bit.ly/YTT-feedback"
-               starget="_blank">
-              Feedback
-            </a>
+              <a href="#" class="youtube-time-tracker__rating-later js-hide-ytt-rating">
+                Later
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -55,6 +76,22 @@ const timerBlock = function() {
     timer.className = "youtube-time-tracker";
 
     logo.parentNode.insertBefore(timer, logo.nextSibling);
+
+    const ratingBlock = document.querySelector(".youtube-time-tracker__rating");
+    const closeLink = ratingBlock.querySelector(".js-hide-ytt-rating");
+    const ratingCookie = "ytt-rating";
+
+    if(!getCookie(ratingCookie)) {
+      ratingBlock.classList.add("youtube-time-tracker__rating--active");
+    }
+
+    closeLink.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      ratingBlock.remove();
+
+      setCookie(ratingCookie, true, 180);
+    });
   }
 
   return timer;
