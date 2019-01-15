@@ -138,7 +138,7 @@ var timerBlock = function timerBlock() {
   if (!timer) {
     timer = document.createElement("div");
 
-    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__popup-body">\n            <div class="youtube-time-tracker__name">\n              Youtube Time Tracker\n            </div>\n\n            <ul class="youtube-time-tracker__stats">\n            </ul>\n\n            <div class="youtube-time-tracker__links">\n              <a class="youtube-time-tracker__link"\n                href="https://github.com/makaroni4/youtube_time_tracker"\n                target="_blank">\n                Source code\n              </a>\n\n              <a class="youtube-time-tracker__link"\n                href="http://bit.ly/YTT-feedback"\n                starget="_blank">\n                Feedback\n              </a>\n            </div>\n          </div>\n\n          <div class="youtube-time-tracker__rating">\n            <div class="youtube-time-tracker__rating-description">\n              If you like the extension \u2013 please, spread the word & rate it in Chrome Web Store:\n            </div>\n\n            <div class="youtube-time-tracker__rating-cta">\n              <a href="http://bit.ly/rate-YTT"\n                 class="youtube-time-tracker__rating-button"\n                 target="_blank">\n                RATE IT\n              </a>\n\n              <a href="#" class="youtube-time-tracker__rating-later js-hide-ytt-rating">\n                Later\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    '.trim();
+    timer.innerHTML = '\n      <div class="youtube-time-tracker__body">\n        <div class="youtube-time-tracker__stopwatch-icon">\n        </div>\n\n        <div class="youtube-time-tracker__time">\n        </div>\n\n        <div class="youtube-time-tracker__popup">\n          <div class="youtube-time-tracker__popup-body">\n            <div class="youtube-time-tracker__name">\n              Youtube Time Tracker\n            </div>\n\n            <ul class="youtube-time-tracker__stats">\n            </ul>\n\n            <div class="youtube-time-tracker__links">\n              <a class="youtube-time-tracker__link secondary-link"\n                href="https://github.com/makaroni4/youtube_time_tracker"\n                target="_blank">\n                Source code\n              </a>\n\n              <a class="youtube-time-tracker__link secondary-link"\n                href="http://bit.ly/YTT-feedback"\n                starget="_blank">\n                Feedback\n              </a>\n            </div>\n          </div>\n\n          <div class="youtube-time-tracker__rating">\n            <div class="youtube-time-tracker__rating-description">\n              If you like the extension \u2013 please, spread the word & rate it in Chrome Web Store:\n            </div>\n\n            <div class="youtube-time-tracker__rating-cta">\n              <a href="http://bit.ly/rate-YTT"\n                 class="youtube-time-tracker__rating-button"\n                 target="_blank">\n                RATE IT\n              </a>\n\n              <a href="#"\n                 class="secondary-link youtube-time-tracker__rating-later js-hide-ytt-rating">\n                Later\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    '.trim();
 
     timer.id = "youtube-time-tracker";
     timer.className = "youtube-time-tracker";
@@ -165,6 +165,24 @@ var timerBlock = function timerBlock() {
   return timer;
 };
 
+var upliftModifier = function upliftModifier(prevTime, currentTime) {
+  if (prevTime === undefined) {
+    return "";
+  }
+
+  return prevTime > currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+};
+
+var renderStat = function renderStat(timerData, name, key, prevKey) {
+  var output = "";
+
+  if (timerData[key]) {
+    output += '\n      <li>\n        <div class="ytt-stat">\n          <div class="ytt-stat__time">\n            ' + name + ': ' + (0, _formatting.formatTime)(timerData[key]) + '\n          </div>\n\n          <div class="ytt-stat__uplift ' + upliftModifier(timerData[key], timerData[prevKey]) + '">\n            ' + ((0, _formatting.uplift)(timerData[key], timerData[prevKey]) || "") + '\n          </div>\n        </div>\n      </li>\n    ';
+  }
+
+  return output;
+};
+
 var statsContent = function statsContent(timerData) {
   var today = (0, _date.todayDate)();
   var week = (0, _date.thisWeek)();
@@ -178,17 +196,9 @@ var statsContent = function statsContent(timerData) {
 
   var stats = "";
 
-  if (timerData[week]) {
-    stats += "<li>This week: " + (0, _formatting.formatTime)(timerData[week]) + "</li>";
-  }
-
-  if (timerData[month]) {
-    stats += "<li>This month: " + (0, _formatting.formatTime)(timerData[month]) + "</li>";
-  }
-
-  if (timerData[year]) {
-    stats += "<li>This year: " + (0, _formatting.formatTime)(timerData[year]) + "</li>";
-  }
+  stats += renderStat(timerData, "This week", week, prevWeek);
+  stats += renderStat(timerData, "This month", month, prevMonth);
+  stats += renderStat(timerData, "This year", year, prevYear);
 
   return stats;
 };
@@ -343,8 +353,14 @@ var lastYear = exports.lastYear = function lastYear() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var calculateUplift = function calculateUplift(minutesToday, minutesYesterday) {
-  return Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1);
+var uplift = exports.uplift = function uplift(minutesToday, minutesYesterday) {
+  if (minutesYesterday === undefined) {
+    return;
+  }
+
+  var sign = minutesToday > minutesYesterday ? "+" : "";
+
+  return sign + Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1) + "%";
 };
 
 var formatTime = exports.formatTime = function formatTime(minutesToday, minutesYesterday) {
@@ -358,11 +374,7 @@ var formatTime = exports.formatTime = function formatTime(minutesToday, minutesY
   result += min + "min";
 
   if (minutesToday >= 10 && minutesYesterday) {
-    if (Math.abs(calculateUplift(minutesToday, minutesYesterday)) < 100) {
-      var sign = minutesToday > minutesYesterday ? "+" : "";
-
-      result += " " + sign + calculateUplift(minutesToday, minutesYesterday) + "%";
-    }
+    result += " " + uplift(minutesToday, minutesYesterday);
   }
 
   return result;

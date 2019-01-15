@@ -1,5 +1,11 @@
-const calculateUplift = function(minutesToday, minutesYesterday) {
-  return Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1);
+export const uplift = function(minutesToday, minutesYesterday) {
+  if(minutesYesterday === undefined) {
+    return;
+  }
+
+  const sign = minutesToday > minutesYesterday ? "+" : "";
+
+  return sign + Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1) + "%";
 }
 
 export const formatTime = function(minutesToday, minutesYesterday) {
@@ -13,11 +19,7 @@ export const formatTime = function(minutesToday, minutesYesterday) {
   result += min + "min";
 
   if(minutesToday >= 10 && minutesYesterday) {
-    if(Math.abs(calculateUplift(minutesToday, minutesYesterday)) < 100) {
-      const sign = minutesToday > minutesYesterday ? "+" : "";
-
-      result += " " + sign + calculateUplift(minutesToday, minutesYesterday) + "%";
-    }
+    result += " " + uplift(minutesToday, minutesYesterday);
   }
 
   return result;

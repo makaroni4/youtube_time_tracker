@@ -1,4 +1,4 @@
-import { formatTime } from './helpers/formatting';
+import { formatTime, uplift } from './helpers/formatting';
 import {
   todayDate,
   yesterdayDate,
@@ -37,13 +37,13 @@ const timerBlock = function() {
             </ul>
 
             <div class="youtube-time-tracker__links">
-              <a class="youtube-time-tracker__link"
+              <a class="youtube-time-tracker__link secondary-link"
                 href="https://github.com/makaroni4/youtube_time_tracker"
                 target="_blank">
                 Source code
               </a>
 
-              <a class="youtube-time-tracker__link"
+              <a class="youtube-time-tracker__link secondary-link"
                 href="http://bit.ly/YTT-feedback"
                 starget="_blank">
                 Feedback
@@ -63,7 +63,8 @@ const timerBlock = function() {
                 RATE IT
               </a>
 
-              <a href="#" class="youtube-time-tracker__rating-later js-hide-ytt-rating">
+              <a href="#"
+                 class="secondary-link youtube-time-tracker__rating-later js-hide-ytt-rating">
                 Later
               </a>
             </div>
@@ -97,6 +98,36 @@ const timerBlock = function() {
   return timer;
 }
 
+const upliftModifier = function(prevTime, currentTime) {
+  if(prevTime === undefined) {
+    return "";
+  }
+
+  return prevTime > currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+}
+
+const renderStat = function(timerData, name, key, prevKey) {
+  let output = "";
+
+  if(timerData[key]) {
+    output += `
+      <li>
+        <div class="ytt-stat">
+          <div class="ytt-stat__time">
+            ${name}: ${formatTime(timerData[key])}
+          </div>
+
+          <div class="ytt-stat__uplift ${upliftModifier(timerData[key], timerData[prevKey])}">
+            ${uplift(timerData[key], timerData[prevKey]) || ""}
+          </div>
+        </div>
+      </li>
+    `
+  }
+
+  return output;
+}
+
 const statsContent = function(timerData) {
   const today = todayDate();
   const week = thisWeek();
@@ -110,17 +141,9 @@ const statsContent = function(timerData) {
 
   let stats = "";
 
-  if(timerData[week]) {
-    stats += "<li>This week: " + formatTime(timerData[week]) + "</li>";
-  }
-
-  if(timerData[month]) {
-    stats += "<li>This month: " + formatTime(timerData[month]) + "</li>";
-  }
-
-  if(timerData[year]) {
-    stats += "<li>This year: " + formatTime(timerData[year]) + "</li>";
-  }
+  stats += renderStat(timerData, "This week", week, prevWeek);
+  stats += renderStat(timerData, "This month", month, prevMonth);
+  stats += renderStat(timerData, "This year", year, prevYear);
 
   return stats;
 }

@@ -1,3 +1,17 @@
+.secondary-link {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #606060 !important;
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.secondary-link:hover {
+  color: #404040 !important;
+}
+
 .youtube-time-tracker {
   position: relative;
   height: 100%;
@@ -69,11 +83,6 @@
 }
 
 .youtube-time-tracker__link {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: normal;
-  color: #606060 !important;
-
   text-decoration: underline;
 }
 
@@ -149,14 +158,19 @@
 
 .youtube-time-tracker__rating-later {
   margin-left: 15px;
+}
 
-  font-size: 12px;
-  font-weight: 500;
-  line-height: normal;
-  color: #606060 !important;
-  text-decoration: underline;
+.ytt-stat {
+  display: flex;
+  justify-content: space-between;
+}
 
-  cursor: pointer;
+.ytt-stat__uplift--red {
+  color: #FD1A20;
+}
+
+.ytt-stat__uplift--green {
+  color: #27AE60;
 }
 
 [dark] .youtube-time-tracker {
