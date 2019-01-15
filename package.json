@@ -4,7 +4,7 @@
   "description": "Chrome Extension that tracks time you spent on Youtube",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require babel-register test/**/**/*_test.js",
+    "test": "jest",
     "start": "node_modules/.bin/webpack src/app.js -o extension/app.js --watch --mode=development",
     "build": "node_modules/.bin/webpack src/app.js -o extension/app.js --mode=production"
   },
@@ -26,9 +26,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
-    "chai": "^4.2.0",
-    "chai-spies": "^1.0.0",
-    "mocha": "^5.2.0",
+    "jest": "^23.6.0",
     "timekeeper": "^2.1.2",
     "webpack": "^4.28.4"
   }

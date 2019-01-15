@@ -1,9 +1,4 @@
-const chai = require('chai');
-const expect = chai.expect;
-const spies = require('chai-spies');
 const tk = require('timekeeper');
-
-chai.use(spies);
 
 import { readData } from '../src/tracker';
 
@@ -16,7 +11,7 @@ describe('readData', () => {
     tk.reset();
   });
 
-  context('when chrome.storage has data', () => {
+  describe('when chrome.storage has data', () => {
     it('calls callback function with timer data', () => {
       global.chrome = {
         storage: {
@@ -35,12 +30,11 @@ describe('readData', () => {
         }
       };
 
-      const callback = function(data) {};
-      const spy = chai.spy(callback);
+      const callback = jest.fn();
 
-      readData(spy);
+      readData(callback);
 
-      expect(spy).to.have.been.called.with({
+      expect(callback).toHaveBeenCalledWith({
         "2019": 100.2,
         "jan-2019": 100.2,
         "2-2019": 100.2,
@@ -49,7 +43,7 @@ describe('readData', () => {
     });
   });
 
-  context('when chrome.storage has no data', () => {
+  describe('when chrome.storage has no data', () => {
     it('sets todays and this month keys to 0', () => {
       global.chrome = {
         storage: {
@@ -63,12 +57,11 @@ describe('readData', () => {
         }
       };
 
-      const callback = function(data) {};
-      const spy = chai.spy(callback);
+      const callback = jest.fn();
 
-      readData(spy);
+      readData(callback);
 
-      expect(spy).to.have.been.called.with({
+      expect(callback).toHaveBeenCalledWith({
         "2019": 0,
         "jan-2019": 0,
         "2-2019": 0,
