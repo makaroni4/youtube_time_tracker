@@ -29,6 +29,8 @@
     "styles/style.css",
     "img/stopwatch.svg",
     "img/stopwatch_white.svg",
-    "img/thumbs_up.svg"
+    "img/thumbs_up.svg",
+    "img/red_triangle.svg",
+    "img/green_triangle.svg"
   ]
 }

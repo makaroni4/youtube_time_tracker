@@ -170,7 +170,7 @@ var upliftModifier = function upliftModifier(prevTime, currentTime) {
     return "";
   }
 
-  return prevTime > currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+  return prevTime < currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
 };
 
 var renderStat = function renderStat(timerData, name, key, prevKey) {

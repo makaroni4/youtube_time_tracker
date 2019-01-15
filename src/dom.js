@@ -103,7 +103,7 @@ const upliftModifier = function(prevTime, currentTime) {
     return "";
   }
 
-  return prevTime > currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+  return prevTime < currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
 }
 
 const renderStat = function(timerData, name, key, prevKey) {
