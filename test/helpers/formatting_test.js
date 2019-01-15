@@ -14,9 +14,9 @@ describe('formatTime', () => {
 
     context('when todays time is less than an hour', () => {
       it('shows number of hours and minutes', () => {
-        expect(formatTime(61)).to.equal("1h1min");
-        expect(formatTime(95.4)).to.equal("1h35min");
-        expect(formatTime(119)).to.equal("1h59min");
+        expect(formatTime(61)).to.equal("1h 1min");
+        expect(formatTime(95.4)).to.equal("1h 35min");
+        expect(formatTime(119)).to.equal("1h 59min");
       });
     });
   });
@@ -32,8 +32,8 @@ describe('formatTime', () => {
       it('shows an uplift', () => {
         expect(formatTime(15, 30)).to.equal("15min -50%");
         expect(formatTime(24, 16)).to.equal("24min +50%");
-        expect(formatTime(75, 60)).to.equal("1h15min +25%");
-        expect(formatTime(75, 90)).to.equal("1h15min -17%");
+        expect(formatTime(75, 60)).to.equal("1h 15min +25%");
+        expect(formatTime(75, 90)).to.equal("1h 15min -17%");
       })
     });
   });

@@ -13,7 +13,7 @@ export const formatTime = function(minutesToday, minutesYesterday) {
   const min = Math.floor(minutesToday % 60);
   let result = "";
   if(hours) {
-    result += hours + "h";
+    result += hours + "h ";
   }
 
   result += min + "min";

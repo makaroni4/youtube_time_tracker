@@ -368,7 +368,7 @@ var formatTime = exports.formatTime = function formatTime(minutesToday, minutesY
   var min = Math.floor(minutesToday % 60);
   var result = "";
   if (hours) {
-    result += hours + "h";
+    result += hours + "h ";
   }
 
   result += min + "min";
