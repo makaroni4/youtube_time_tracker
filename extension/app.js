@@ -198,6 +198,7 @@ var statsContent = function statsContent(timerData) {
 
   var stats = "";
 
+  stats += renderStat(timerData, "Today", today, yesterday);
   stats += renderStat(timerData, "This week", week, prevWeek);
   stats += renderStat(timerData, "This month", month, prevMonth);
   stats += renderStat(timerData, "This year", year, prevYear);
@@ -365,7 +366,7 @@ var uplift = exports.uplift = function uplift(minutesToday, minutesYesterday) {
   return sign + Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1) + "%";
 };
 
-var formatTime = exports.formatTime = function formatTime(minutesToday, minutesYesterday) {
+var formatTime = exports.formatTime = function formatTime(minutesToday) {
   var hours = Math.floor(minutesToday / 60);
   var min = Math.floor(minutesToday % 60);
   var result = "";
@@ -374,10 +375,6 @@ var formatTime = exports.formatTime = function formatTime(minutesToday, minutesY
   }
 
   result += min + "min";
-
-  if (minutesToday >= 10 && minutesYesterday) {
-    result += " " + uplift(minutesToday, minutesYesterday);
-  }
 
   return result;
 };

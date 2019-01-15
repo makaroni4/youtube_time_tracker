@@ -141,6 +141,7 @@ const statsContent = function(timerData) {
 
   let stats = "";
 
+  stats += renderStat(timerData, "Today", today, yesterday);
   stats += renderStat(timerData, "This week", week, prevWeek);
   stats += renderStat(timerData, "This month", month, prevMonth);
   stats += renderStat(timerData, "This year", year, prevYear);

@@ -8,7 +8,7 @@ export const uplift = function(minutesToday, minutesYesterday) {
   return sign + Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1) + "%";
 }
 
-export const formatTime = function(minutesToday, minutesYesterday) {
+export const formatTime = function(minutesToday) {
   const hours = Math.floor(minutesToday / 60);
   const min = Math.floor(minutesToday % 60);
   let result = "";
@@ -17,10 +17,6 @@ export const formatTime = function(minutesToday, minutesYesterday) {
   }
 
   result += min + "min";
-
-  if(minutesToday >= 10 && minutesYesterday) {
-    result += " " + uplift(minutesToday, minutesYesterday);
-  }
 
   return result;
 }
