@@ -125,12 +125,14 @@
 .youtube-time-tracker__rating-button {
   position: relative;
   display: inline-block;
-  padding: 10px 20px 10px 45px;
+  padding: 10px 16px 10px 40px;
 
   border-radius: 2px;
 
   background-color: #FD1A20;
 
+  font-size: 14px;
+  font-weight: 500;
   color: #FFF;
   text-decoration: none;
 
@@ -145,9 +147,9 @@
   position: absolute;
   top: 50%;
   left: 15px;
-  height: 20px;
-  width: 20px;
-  margin-top: -12px;
+  height: 16px;
+  width: 16px;
+  margin-top: -10px;
 
   background-size: contain;
   background-repeat: no-repeat;
@@ -157,7 +159,7 @@
 }
 
 .youtube-time-tracker__rating-later {
-  margin-left: 15px;
+  margin-left: 10px;
 }
 
 .ytt-stat {

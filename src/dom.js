@@ -45,7 +45,7 @@ const timerBlock = function() {
 
               <a class="youtube-time-tracker__link secondary-link"
                 href="http://bit.ly/YTT-feedback"
-                starget="_blank">
+                target="_blank">
                 Feedback
               </a>
             </div>
