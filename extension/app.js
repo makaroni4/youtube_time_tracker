@@ -102,9 +102,11 @@ var _dom = __webpack_require__(/*! ./dom */ "./src/dom.js");
 
 (0, _dom.renderTimer)();
 
+var heartbit = 6; // sec
+
 setInterval(function () {
-  (0, _tracker.incrementTime)(0.1, _dom.renderTimer);
-}, 6000);
+  (0, _tracker.incrementTime)(heartbit / 60, _dom.renderTimer);
+}, heartbit * 1000);
 
 /***/ }),
 

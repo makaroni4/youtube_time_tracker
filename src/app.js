@@ -3,6 +3,8 @@ import { renderTimer } from './dom';
 
 renderTimer();
 
+const heartbit = 6; // sec
+
 setInterval(function() {
-  incrementTime(0.1, renderTimer);
-}, 6000);
+  incrementTime(heartbit / 60, renderTimer);
+}, heartbit * 1000);
