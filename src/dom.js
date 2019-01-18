@@ -99,17 +99,17 @@ const timerBlock = function() {
   return timer;
 }
 
-const upliftCssClass = function(prevTime, currentTime) {
+const upliftCssClass = function(currentTime, prevTime) {
   if(prevTime === undefined) {
     return "";
   }
 
   let cssClass = "ytt-stat__uplift--active";
 
-  if(prevTime < currentTime) {
-    cssClass << "ytt-stat__uplift--green";
+  if(currentTime > prevTime) {
+    cssClass += " ytt-stat__uplift--red";
   } else {
-    cssClass << "ytt-stat__uplift--red";
+    cssClass += " ytt-stat__uplift--green";
   }
 
   return cssClass;

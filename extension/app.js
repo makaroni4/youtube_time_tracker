@@ -176,17 +176,17 @@ var timerBlock = function timerBlock() {
   return timer;
 };
 
-var upliftCssClass = function upliftCssClass(prevTime, currentTime) {
+var upliftCssClass = function upliftCssClass(currentTime, prevTime) {
   if (prevTime === undefined) {
     return "";
   }
 
   var cssClass = "ytt-stat__uplift--active";
 
-  if (prevTime < currentTime) {
-    cssClass << "ytt-stat__uplift--green";
+  if (currentTime > prevTime) {
+    cssClass += " ytt-stat__uplift--red";
   } else {
-    cssClass << "ytt-stat__uplift--red";
+    cssClass += " ytt-stat__uplift--green";
   }
 
   return cssClass;
