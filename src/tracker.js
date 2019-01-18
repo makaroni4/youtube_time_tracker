@@ -12,10 +12,14 @@ import {
 
 const TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
-const persistData = function(timer) {
+const persistData = function(timer, callback) {
   chrome.storage.local.set({ [TRACKER_STORAGE_KEY]: timer }, function() {
     log('YouTube Time Tracker is set to:');
     log(timer);
+
+    if(callback) {
+      callback(timer);
+    }
   });
 }
 
@@ -60,10 +64,6 @@ export const incrementTime = function(increment, callback) {
       }
     });
 
-    persistData(timer);
-
-    if(callback) {
-      callback(timer);
-    }
+    persistData(timer, callback);
   });
 }

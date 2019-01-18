@@ -447,10 +447,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var TRACKER_STORAGE_KEY = "youtube_time_tracker_data";
 
-var persistData = function persistData(timer) {
+var persistData = function persistData(timer, callback) {
   chrome.storage.local.set(_defineProperty({}, TRACKER_STORAGE_KEY, timer), function () {
     (0, _log.log)('YouTube Time Tracker is set to:');
     (0, _log.log)(timer);
+
+    if (callback) {
+      callback(timer);
+    }
   });
 };
 
@@ -495,11 +499,7 @@ var incrementTime = exports.incrementTime = function incrementTime(increment, ca
       }
     });
 
-    persistData(timer);
-
-    if (callback) {
-      callback(timer);
-    }
+    persistData(timer, callback);
   });
 };
 
