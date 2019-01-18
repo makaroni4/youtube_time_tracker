@@ -179,8 +179,12 @@
 }
 
 .ytt-stat__uplift {
-  display: flex;
+  display: none;
   align-items: center;
+}
+
+.ytt-stat__uplift--active {
+  display: flex;
 }
 
 .ytt-stat__uplift--red {

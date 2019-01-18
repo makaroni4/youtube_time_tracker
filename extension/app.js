@@ -167,19 +167,27 @@ var timerBlock = function timerBlock() {
   return timer;
 };
 
-var upliftModifier = function upliftModifier(prevTime, currentTime) {
+var upliftCssClass = function upliftCssClass(prevTime, currentTime) {
   if (prevTime === undefined) {
     return "";
   }
 
-  return prevTime < currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+  var cssClass = "ytt-stat__uplift--active";
+
+  if (prevTime < currentTime) {
+    cssClass << "ytt-stat__uplift--green";
+  } else {
+    cssClass << "ytt-stat__uplift--red";
+  }
+
+  return cssClass;
 };
 
 var renderStat = function renderStat(timerData, name, key, prevKey) {
   var output = "";
 
   if (timerData[key]) {
-    output += '\n      <li>\n        <div class="ytt-stat">\n          <div class="ytt-stat__time">\n            ' + name + ': ' + (0, _formatting.formatTime)(timerData[key]) + '\n          </div>\n\n          <div class="ytt-stat__uplift ' + upliftModifier(timerData[key], timerData[prevKey]) + '">\n            ' + ((0, _formatting.uplift)(timerData[key], timerData[prevKey]) || "") + '\n          </div>\n        </div>\n      </li>\n    ';
+    output += '\n      <li>\n        <div class="ytt-stat">\n          <div class="ytt-stat__time">\n            ' + name + ': ' + (0, _formatting.formatTime)(timerData[key]) + '\n          </div>\n\n          <div class="ytt-stat__uplift ' + upliftCssClass(timerData[key], timerData[prevKey]) + '">\n            ' + ((0, _formatting.uplift)(timerData[key], timerData[prevKey]) || "") + '\n          </div>\n        </div>\n      </li>\n    ';
   }
 
   return output;

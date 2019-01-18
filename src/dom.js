@@ -98,12 +98,20 @@ const timerBlock = function() {
   return timer;
 }
 
-const upliftModifier = function(prevTime, currentTime) {
+const upliftCssClass = function(prevTime, currentTime) {
   if(prevTime === undefined) {
     return "";
   }
 
-  return prevTime < currentTime ? "ytt-stat__uplift--green" : "ytt-stat__uplift--red";
+  let cssClass = "ytt-stat__uplift--active";
+
+  if(prevTime < currentTime) {
+    cssClass << "ytt-stat__uplift--green";
+  } else {
+    cssClass << "ytt-stat__uplift--red";
+  }
+
+  return cssClass;
 }
 
 const renderStat = function(timerData, name, key, prevKey) {
@@ -117,7 +125,7 @@ const renderStat = function(timerData, name, key, prevKey) {
             ${name}: ${formatTime(timerData[key])}
           </div>
 
-          <div class="ytt-stat__uplift ${upliftModifier(timerData[key], timerData[prevKey])}">
+          <div class="ytt-stat__uplift ${upliftCssClass(timerData[key], timerData[prevKey])}">
             ${uplift(timerData[key], timerData[prevKey]) || ""}
           </div>
         </div>
