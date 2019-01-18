@@ -1,5 +1,12 @@
+const ISODate = function(d = new Date()) {
+  var tzoffset = d.getTimezoneOffset() * 60000; // offset in milliseconds
+  var localISOTime = (new Date(d.getTime() - tzoffset)).toISOString().slice(0, -1);
+
+  return localISOTime.slice(0, 10);
+}
+
 export const todayDate = function() {
-  return new Date().toISOString().slice(0, 10);
+  return ISODate();
 }
 
 export const yesterdayDate = function() {
@@ -7,7 +14,7 @@ export const yesterdayDate = function() {
 
   date.setDate(date.getDate() - 1);
 
-  return date.toISOString().slice(0, 10);
+  return ISODate(date);
 }
 
 // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php/6117889#6117889
