@@ -1,4 +1,4 @@
-import { formatTime } from '../../src/helpers/formatting';
+import { formatTime } from '../../../src/helpers/formatting';
 
 describe('formatTime', () => {
   describe('when todays time is less than an hour', () => {
