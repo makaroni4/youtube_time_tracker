@@ -146,6 +146,8 @@
   font-weight: 500;
   color: #FFF;
   text-decoration: none;
+  letter-spacing: .007px;
+  -webkit-font-smoothing: antialiased;
 
   cursor: pointer;
 }
