@@ -100,12 +100,19 @@ var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
 
 var _dom = __webpack_require__(/*! ./dom */ "./src/dom.js");
 
+var heartbit = 6; // sec
+var heartbitsCount = 0;
+
 (0, _dom.renderTimer)();
 
-var heartbit = 6; // sec
-
 setInterval(function () {
-  (0, _tracker.incrementTime)(heartbit / 60, _dom.renderTimer);
+  if (heartbitsCount % 10 === 0) {
+    (0, _tracker.incrementTime)(heartbit / 60, _dom.renderTimer);
+  } else {
+    (0, _tracker.incrementTime)(heartbit / 60);
+  }
+
+  heartbitsCount += 1;
 }, heartbit * 1000);
 
 /***/ }),
@@ -132,6 +139,8 @@ var _date = __webpack_require__(/*! ./helpers/date */ "./src/helpers/date.js");
 var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
 
 var _cookie = __webpack_require__(/*! ./helpers/cookie */ "./src/helpers/cookie.js");
+
+var _log = __webpack_require__(/*! ./helpers/log */ "./src/helpers/log.js");
 
 var timerBlock = function timerBlock() {
   var logo = document.getElementById("logo");
@@ -215,6 +224,8 @@ var statsContent = function statsContent(timerData) {
 };
 
 var renderTimer = exports.renderTimer = function renderTimer(timerData) {
+  (0, _log.log)('--> renderTimer');
+
   var logo = document.getElementById("logo");
 
   if (logo) {

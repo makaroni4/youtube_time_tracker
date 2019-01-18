@@ -11,6 +11,7 @@ import {
 } from './helpers/date';
 import { readData } from './tracker';
 import { getCookie, setCookie } from './helpers/cookie';
+import { log } from './helpers/log';
 
 const timerBlock = function() {
   const logo = document.getElementById("logo");
@@ -158,6 +159,8 @@ const statsContent = function(timerData) {
 }
 
 export const renderTimer = function(timerData) {
+  log('--> renderTimer');
+
   let logo = document.getElementById("logo");
 
   if(logo) {
