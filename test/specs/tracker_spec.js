@@ -64,24 +64,12 @@ describe('incrementTime', () => {
 
   describe('when chrome.storage has data', () => {
     it('calls callback function with timer data', () => {
-      global.chrome = {
-        storage: {
-          local: {
-            get: (key, callback) => {
-              callback({
-                "youtube_time_tracker_data": {
-                  "2019": 100.2,
-                  "jan-2019": 100.2,
-                  "2-2019": 100.2,
-                  "2019-01-13": 100.2
-                }
-              });
-            },
-            set: (data, callback) => {
-            }
-          }
-        }
-      };
+      mockChromeStorage({
+        "2019": 100.2,
+        "jan-2019": 100.2,
+        "2-2019": 100.2,
+        "2019-01-13": 100.2
+      });
 
       const callback = jest.fn();
 
@@ -98,19 +86,7 @@ describe('incrementTime', () => {
 
   describe('when chrome.storage has no data', () => {
     it('sets todays and this month keys to 0', () => {
-      global.chrome = {
-        storage: {
-          local: {
-            get: (key, callback) => {
-              callback({
-                "youtube_time_tracker_data": null
-              });
-            },
-            set: (data, callback) => {
-            }
-          }
-        }
-      };
+      mockChromeStorage(null);
 
       const callback = jest.fn();
 
@@ -126,4 +102,44 @@ describe('incrementTime', () => {
   });
 });
 
+describe('cleanUpOldKeys', () => {
+  beforeEach(() => {
+    tk.freeze("Sun Jan 13 2019 20:38:45 GMT+0100 (Central European Standard Time)");
+  });
 
+  afterEach(() => {
+    tk.reset();
+  });
+
+  it("cleas up keys that won't be used in calculations", () => {
+    mockChromeStorage({
+      "foo": "bar", // just a random key that should be dropped
+      "2017": 1000, // this year won't be used for calculation, so it should be dropped etc
+      "2018": 50,
+      "dec-2018": 50,
+      "52-2018": 50,
+      "2018-12-31": 50,
+      "2019": 100,
+      "jan-2019": 100,
+      "2-2019": 100,
+      "1-2019": 10,
+      "2019-01-13": 100,
+      "2019-01-12": 10
+    });
+
+    const callback = jest.fn();
+
+    incrementTime(1, callback);
+
+    expect(callback).toHaveBeenCalledWith({
+      "2018": 50,
+      "2019": 101,
+      "dec-2018": 50,
+      "jan-2019": 101,
+      "2-2019": 101,
+      "1-2019": 10,
+      "2019-01-13": 101,
+      "2019-01-12": 10
+    });
+  });
+});

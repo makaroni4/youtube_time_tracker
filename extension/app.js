@@ -343,13 +343,13 @@ var lastMonth = exports.lastMonth = function lastMonth() {
 
   date.setMonth(date.getMonth() - 1);
 
-  return date.getMonth() + '-' + date.getFullYear();
+  return monthNames[date.getMonth()] + '-' + date.getFullYear();
 };
 
 var thisYear = exports.thisYear = function thisYear() {
   var date = new Date();
 
-  return date.getFullYear();
+  return date.getFullYear().toString();
 };
 
 var lastYear = exports.lastYear = function lastYear() {
@@ -357,7 +357,7 @@ var lastYear = exports.lastYear = function lastYear() {
 
   date.setDate(date.getDate() - 365);
 
-  return date.getFullYear();
+  return date.getFullYear().toString();
 };
 
 /***/ }),
@@ -458,6 +458,16 @@ var persistData = function persistData(timer, callback) {
   });
 };
 
+var cleanUpOldKeys = function cleanUpOldKeys(timer) {
+  var allowedKeys = new Set([(0, _date.todayDate)(), (0, _date.thisWeek)(), (0, _date.thisMonth)(), (0, _date.thisYear)(), (0, _date.yesterdayDate)(), (0, _date.lastWeek)(), (0, _date.lastMonth)(), (0, _date.lastYear)()]);
+
+  Object.keys(timer).filter(function (key) {
+    return !allowedKeys.has(key);
+  }).forEach(function (key) {
+    return delete timer[key];
+  });
+};
+
 var readData = exports.readData = function readData(callback) {
   chrome.storage.local.get([TRACKER_STORAGE_KEY], function (result) {
     (0, _log.log)('YouTube Time Tracker read as:');
@@ -498,6 +508,8 @@ var incrementTime = exports.incrementTime = function incrementTime(increment, ca
         timer[key] = increment;
       }
     });
+
+    cleanUpOldKeys(timer);
 
     persistData(timer, callback);
   });

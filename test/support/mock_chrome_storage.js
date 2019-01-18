@@ -8,6 +8,9 @@ export const mockChromeStorage = function(trackerData) {
           });
         },
         set: (data, callback) => {
+          if(callback) {
+            callback(data);
+          }
         }
       }
     }

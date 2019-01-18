@@ -55,13 +55,13 @@ export const lastMonth = function() {
 
   date.setMonth(date.getMonth() - 1);
 
-  return date.getMonth() + '-' + date.getFullYear();
+  return monthNames[date.getMonth()] + '-' + date.getFullYear();
 }
 
 export const thisYear = function() {
   const date = new Date();
 
-  return date.getFullYear();
+  return date.getFullYear().toString();
 }
 
 export const lastYear = function() {
@@ -69,5 +69,5 @@ export const lastYear = function() {
 
   date.setDate(date.getDate() - 365);
 
-  return date.getFullYear();
+  return date.getFullYear().toString();
 }

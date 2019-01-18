@@ -23,6 +23,23 @@ const persistData = function(timer, callback) {
   });
 }
 
+const cleanUpOldKeys = function(timer) {
+  const allowedKeys = new Set([
+    todayDate(),
+    thisWeek(),
+    thisMonth(),
+    thisYear(),
+    yesterdayDate(),
+    lastWeek(),
+    lastMonth(),
+    lastYear()
+  ]);
+
+  Object.keys(timer)
+    .filter(key => !allowedKeys.has(key))
+    .forEach(key => delete timer[key]);
+}
+
 export const readData = function(callback) {
   chrome.storage.local.get([TRACKER_STORAGE_KEY], function(result) {
     log('YouTube Time Tracker read as:');
@@ -63,6 +80,8 @@ export const incrementTime = function(increment, callback) {
         timer[key] = increment;
       }
     });
+
+    cleanUpOldKeys(timer);
 
     persistData(timer, callback);
   });
