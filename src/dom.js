@@ -161,11 +161,11 @@ export const renderTimer = function(timerData) {
     const yesterday = yesterdayDate();
 
     if(timerData) {
-      timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+      timeBlock.innerHTML = formatTime(timerData[today]);
       statsBlock.innerHTML = statsContent(timerData);
     } else {
       readData(function(timerData) {
-        timeBlock.innerHTML = formatTime(timerData[today], timerData[yesterday]);
+        timeBlock.innerHTML = formatTime(timerData[today]);
         statsBlock.innerHTML = statsContent(timerData);
       });
     }

@@ -218,11 +218,11 @@ var renderTimer = exports.renderTimer = function renderTimer(timerData) {
     var yesterday = (0, _date.yesterdayDate)();
 
     if (timerData) {
-      timeBlock.innerHTML = (0, _formatting.formatTime)(timerData[today], timerData[yesterday]);
+      timeBlock.innerHTML = (0, _formatting.formatTime)(timerData[today]);
       statsBlock.innerHTML = statsContent(timerData);
     } else {
       (0, _tracker.readData)(function (timerData) {
-        timeBlock.innerHTML = (0, _formatting.formatTime)(timerData[today], timerData[yesterday]);
+        timeBlock.innerHTML = (0, _formatting.formatTime)(timerData[today]);
         statsBlock.innerHTML = statsContent(timerData);
       });
     }
@@ -366,10 +366,13 @@ var uplift = exports.uplift = function uplift(minutesToday, minutesYesterday) {
   return sign + Math.round(100 * (minutesToday - minutesYesterday) / minutesYesterday, 1) + "%";
 };
 
-var formatTime = exports.formatTime = function formatTime(minutesToday) {
+var formatTime = exports.formatTime = function formatTime() {
+  var minutesToday = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
   var hours = Math.floor(minutesToday / 60);
   var min = Math.floor(minutesToday % 60);
   var result = "";
+
   if (hours) {
     result += hours + "h ";
   }
