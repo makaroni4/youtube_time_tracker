@@ -117,21 +117,21 @@ const upliftCssClass = function(prevTime, currentTime) {
 const renderStat = function(timerData, name, key, prevKey) {
   let output = "";
 
-  if(timerData[key]) {
-    output += `
-      <li>
-        <div class="ytt-stat">
-          <div class="ytt-stat__time">
-            ${name}: ${formatTime(timerData[key])}
-          </div>
+  const duration = formatTime(timerData[key]);
 
-          <div class="ytt-stat__uplift ${upliftCssClass(timerData[key], timerData[prevKey])}">
-            ${uplift(timerData[key], timerData[prevKey]) || ""}
-          </div>
+  output += `
+    <li>
+      <div class="ytt-stat">
+        <div class="ytt-stat__time">
+          ${name}: ${duration}
         </div>
-      </li>
-    `
-  }
+
+        <div class="ytt-stat__uplift ${upliftCssClass(timerData[key], timerData[prevKey])}">
+          ${uplift(timerData[key], timerData[prevKey]) || ""}
+        </div>
+      </div>
+    </li>
+  `;
 
   return output;
 }

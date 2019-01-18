@@ -186,9 +186,9 @@ var upliftCssClass = function upliftCssClass(prevTime, currentTime) {
 var renderStat = function renderStat(timerData, name, key, prevKey) {
   var output = "";
 
-  if (timerData[key]) {
-    output += '\n      <li>\n        <div class="ytt-stat">\n          <div class="ytt-stat__time">\n            ' + name + ': ' + (0, _formatting.formatTime)(timerData[key]) + '\n          </div>\n\n          <div class="ytt-stat__uplift ' + upliftCssClass(timerData[key], timerData[prevKey]) + '">\n            ' + ((0, _formatting.uplift)(timerData[key], timerData[prevKey]) || "") + '\n          </div>\n        </div>\n      </li>\n    ';
-  }
+  var duration = (0, _formatting.formatTime)(timerData[key]);
+
+  output += '\n    <li>\n      <div class="ytt-stat">\n        <div class="ytt-stat__time">\n          ' + name + ': ' + duration + '\n        </div>\n\n        <div class="ytt-stat__uplift ' + upliftCssClass(timerData[key], timerData[prevKey]) + '">\n          ' + ((0, _formatting.uplift)(timerData[key], timerData[prevKey]) || "") + '\n        </div>\n      </div>\n    </li>\n  ';
 
   return output;
 };
