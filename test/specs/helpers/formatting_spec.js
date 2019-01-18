@@ -23,5 +23,3 @@ describe('formatTime', () => {
     });
   });
 });
-
-
