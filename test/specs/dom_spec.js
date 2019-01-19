@@ -2,6 +2,13 @@ const tk = require('timekeeper');
 
 import { renderTimer } from '../../src/dom';
 import { mockChromeStorage } from '../support/mock_chrome_storage';
+import {
+  todaysTime,
+  todayStat,
+  weekStat,
+  monthStat,
+  yearStat
+} from '../support/selectors';
 
 describe('renderTimer', () => {
   beforeEach(() => {
@@ -45,7 +52,7 @@ describe('renderTimer', () => {
       it('displays time from passed data', () => {
         renderTimer(trackerData);
 
-        expect(document.querySelector('.youtube-time-tracker__time').textContent).toBe("1h 50min");
+        expect(todaysTime()).toBe("1h 50min");
       });
     });
 
@@ -60,34 +67,26 @@ describe('renderTimer', () => {
         it('displays time from chrome.storage data', () => {
           renderTimer();
 
-          expect(document.querySelector('.youtube-time-tracker__time').textContent).toBe("1h 40min");
           expect(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).toHaveLength(4);
 
-          const todayStat = Array.from(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).find((el) => {
-            return el.textContent.includes("Today:");
-          });
+          expect(todayStat().querySelector(".ytt-stat__time")).toHaveContent("Today: 1h 40min");
+          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveContent("+100%");
+          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
+          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--red");
 
-          const weekStat = Array.from(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).find((el) => {
-            return el.textContent.includes("This week:");
-          });
+          expect(weekStat().querySelector(".ytt-stat__time")).toHaveContent("This week: 1h 40min");
+          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveContent("-50%");
+          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
+          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--green");
 
-          const monthStat = Array.from(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).find((el) => {
-            return el.textContent.includes("This month:");
-          });
+          expect(monthStat().querySelector(".ytt-stat__time")).toHaveContent("This month: 1h 40min");
+          expect(monthStat().querySelector(".ytt-stat__uplift")).toHaveContent("");
+          expect(monthStat().querySelector(".ytt-stat__uplift")).not.toHaveClass("ytt-stat__uplift--active");
 
-          expect(todayStat.querySelector(".ytt-stat__time").textContent.trim()).toBe("Today: 1h 40min");
-          expect(todayStat.querySelector(".ytt-stat__uplift").textContent.trim()).toBe("+100%");
-          expect(todayStat.querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
-          expect(todayStat.querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--red");
-
-          expect(weekStat.querySelector(".ytt-stat__time").textContent.trim()).toBe("This week: 1h 40min");
-          expect(weekStat.querySelector(".ytt-stat__uplift").textContent.trim()).toBe("-50%");
-          expect(weekStat.querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
-          expect(weekStat.querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--green");
-
-          expect(monthStat.querySelector(".ytt-stat__time").textContent.trim()).toBe("This month: 1h 40min");
-          expect(monthStat.querySelector(".ytt-stat__uplift").textContent.trim()).toBe("");
-          expect(monthStat.querySelector(".ytt-stat__uplift")).not.toHaveClass("ytt-stat__uplift--active");
+          expect(yearStat().querySelector(".ytt-stat__time")).toHaveContent("This year: 1h 40min");
+          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveContent("+100%");
+          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
+          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--red");
         });
       });
 

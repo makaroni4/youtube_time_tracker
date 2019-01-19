@@ -1,7 +1,9 @@
-import { toHaveClass } from './has_class';
+import { toHaveClass } from './have_class';
+import { toHaveContent } from './have_content';
 
 const customMatchers = {
-  toHaveClass
+  toHaveClass,
+  toHaveContent
 }
 
 global.expect.extend(customMatchers);
