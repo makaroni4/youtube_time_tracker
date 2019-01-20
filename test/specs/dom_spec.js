@@ -3,11 +3,15 @@ const tk = require('timekeeper');
 import { renderTimer } from '../../src/dom';
 import { mockChromeStorage } from '../support/mock_chrome_storage';
 import {
-  todaysTime,
-  todayStat,
-  weekStat,
-  monthStat,
-  yearStat
+  headerTodayTime,
+  todayTime,
+  weekTime,
+  monthTime,
+  yearTime,
+  todayUplift,
+  weekUplift,
+  monthUplift,
+  yearUplift
 } from '../support/selectors';
 
 describe('renderTimer', () => {
@@ -52,7 +56,7 @@ describe('renderTimer', () => {
       it('displays time from passed data', () => {
         renderTimer(trackerData);
 
-        expect(todaysTime()).toBe("1h 50min");
+        expect(headerTodayTime()).toHaveContent("1h 50min");
       });
     });
 
@@ -69,24 +73,24 @@ describe('renderTimer', () => {
 
           expect(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).toHaveLength(4);
 
-          expect(todayStat().querySelector(".ytt-stat__time")).toHaveContent("Today: 1h 40min");
-          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveContent("+100%");
-          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
-          expect(todayStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--red");
+          expect(todayTime()).toHaveContent("Today: 1h 40min");
+          expect(todayUplift()).toHaveContent("+100%");
+          expect(todayUplift()).toHaveClass("ytt-stat__uplift--active");
+          expect(todayUplift()).toHaveClass("ytt-stat__uplift--red");
 
-          expect(weekStat().querySelector(".ytt-stat__time")).toHaveContent("This week: 1h 40min");
-          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveContent("-50%");
-          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
-          expect(weekStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--green");
+          expect(weekTime()).toHaveContent("This week: 1h 40min");
+          expect(weekUplift()).toHaveContent("-50%");
+          expect(weekUplift()).toHaveClass("ytt-stat__uplift--active");
+          expect(weekUplift()).toHaveClass("ytt-stat__uplift--green");
 
-          expect(monthStat().querySelector(".ytt-stat__time")).toHaveContent("This month: 1h 40min");
-          expect(monthStat().querySelector(".ytt-stat__uplift")).toHaveContent("");
-          expect(monthStat().querySelector(".ytt-stat__uplift")).not.toHaveClass("ytt-stat__uplift--active");
+          expect(monthTime()).toHaveContent("This month: 1h 40min");
+          expect(monthUplift()).toHaveContent("");
+          expect(monthUplift()).not.toHaveClass("ytt-stat__uplift--active");
 
-          expect(yearStat().querySelector(".ytt-stat__time")).toHaveContent("This year: 1h 40min");
-          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveContent("+100%");
-          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--active");
-          expect(yearStat().querySelector(".ytt-stat__uplift")).toHaveClass("ytt-stat__uplift--red");
+          expect(yearTime()).toHaveContent("This year: 1h 40min");
+          expect(yearUplift()).toHaveContent("+100%");
+          expect(yearUplift()).toHaveClass("ytt-stat__uplift--active");
+          expect(yearUplift()).toHaveClass("ytt-stat__uplift--red");
         });
       });
 
@@ -96,7 +100,7 @@ describe('renderTimer', () => {
 
           renderTimer();
 
-          expect(document.querySelector('.youtube-time-tracker__time').textContent).toBe("0min");
+          expect(headerTodayTime()).toHaveContent("0min");
 
           tk.reset();
         });
@@ -119,7 +123,7 @@ describe('renderTimer', () => {
       });
 
       it('displays time from passed data', () => {
-        expect(document.querySelector('.youtube-time-tracker__time').textContent).toBe("1h 50min");
+        expect(headerTodayTime()).toHaveContent("1h 50min");
       });
     });
 
@@ -133,7 +137,7 @@ describe('renderTimer', () => {
       });
 
       it('displays 0min', () => {
-        expect(document.querySelector('.youtube-time-tracker__time').textContent).toBe("0min");
+        expect(headerTodayTime()).toHaveContent("0min");
       });
     });
   });
