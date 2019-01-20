@@ -1,4 +1,4 @@
-import { formatTime } from '../../../src/helpers/formatting';
+import { uplift, formatTime } from '../../../src/helpers/formatting';
 
 describe('formatTime', () => {
   describe('when todays time is less than an hour', () => {
@@ -21,5 +21,29 @@ describe('formatTime', () => {
     it('returns 0min', () => {
       expect(formatTime()).toBe("0min");
     });
+  });
+});
+
+describe('uplift', () => {
+  describe('when no input is passed', () => {
+    it('returns undefined', () => {
+      expect(uplift()).toBe(undefined);
+    });
+  });
+
+  describe('when there is only curren time present', () => {
+    it("always returns undefined", () => {
+      expect(uplift(0)).toBe(undefined);
+      expect(uplift(100)).toBe(undefined);
+    })
+  });
+
+  describe('when there are both params present: current and prev times', () => {
+    it("returns relative uplift with sign and percentage symbol", () => {
+      expect(uplift(0, 100)).toBe(undefined);
+      expect(uplift(1, 100)).toBe("-99%");
+      expect(uplift(200, 100)).toBe("+100%");
+      expect(uplift(30, 45)).toBe("-33%");
+    })
   });
 });

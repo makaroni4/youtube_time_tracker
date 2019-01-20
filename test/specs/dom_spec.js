@@ -4,6 +4,7 @@ import { renderTimer } from '../../src/dom';
 import { mockChromeStorage } from '../support/mock_chrome_storage';
 import {
   headerTodayTime,
+  statItems,
   todayTime,
   weekTime,
   monthTime,
@@ -71,7 +72,7 @@ describe('renderTimer', () => {
         it('displays time from chrome.storage data', () => {
           renderTimer();
 
-          expect(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).toHaveLength(4);
+          expect(statItems()).toHaveLength(4);
 
           expect(todayTime()).toHaveContent("Today: 1h 40min");
           expect(todayUplift()).toHaveContent("+100%");
@@ -102,6 +103,23 @@ describe('renderTimer', () => {
 
           expect(headerTodayTime()).toHaveContent("0min");
 
+          expect(todayTime()).toHaveContent("Today: 0min");
+          expect(todayUplift()).toHaveContent("");
+          expect(todayUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+          expect(weekTime()).toHaveContent("This week: 0min");
+          expect(weekUplift()).toHaveContent("");
+          expect(weekUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+          expect(monthTime()).toHaveContent("This month: 1h 40min");
+          expect(monthUplift()).toHaveContent("");
+          expect(monthUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+          expect(yearTime()).toHaveContent("This year: 1h 40min");
+          expect(yearUplift()).toHaveContent("+100%");
+          expect(yearUplift()).toHaveClass("ytt-stat__uplift--active");
+          expect(yearUplift()).toHaveClass("ytt-stat__uplift--red");
+
           tk.reset();
         });
       });
@@ -125,6 +143,26 @@ describe('renderTimer', () => {
       it('displays time from passed data', () => {
         expect(headerTodayTime()).toHaveContent("1h 50min");
       });
+
+      it('displays correct time for all items in hover', () => {
+        expect(statItems()).toHaveLength(4);
+
+        expect(todayTime()).toHaveContent("Today: 1h 50min");
+        expect(todayUplift()).toHaveContent("");
+        expect(todayUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(weekTime()).toHaveContent("This week: 1h 50min");
+        expect(weekUplift()).toHaveContent("");
+        expect(weekUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(monthTime()).toHaveContent("This month: 1h 50min");
+        expect(monthUplift()).toHaveContent("");
+        expect(monthUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(yearTime()).toHaveContent("This year: 1h 50min");
+        expect(yearUplift()).toHaveContent("");
+        expect(yearUplift()).not.toHaveClass("ytt-stat__uplift--active");
+      });
     });
 
     describe('when trackerData is not passed', () => {
@@ -138,6 +176,26 @@ describe('renderTimer', () => {
 
       it('displays 0min', () => {
         expect(headerTodayTime()).toHaveContent("0min");
+      });
+
+      it('displays 0min for all items in hover', () => {
+        expect(statItems()).toHaveLength(4);
+
+        expect(todayTime()).toHaveContent("Today: 0min");
+        expect(todayUplift()).toHaveContent("");
+        expect(todayUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(weekTime()).toHaveContent("This week: 0min");
+        expect(weekUplift()).toHaveContent("");
+        expect(weekUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(monthTime()).toHaveContent("This month: 0min");
+        expect(monthUplift()).toHaveContent("");
+        expect(monthUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(yearTime()).toHaveContent("This year: 0min");
+        expect(yearUplift()).toHaveContent("");
+        expect(yearUplift()).not.toHaveClass("ytt-stat__uplift--active");
       });
     });
   });

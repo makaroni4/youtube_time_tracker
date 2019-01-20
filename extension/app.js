@@ -177,7 +177,7 @@ var timerBlock = function timerBlock() {
 };
 
 var upliftCssClass = function upliftCssClass(currentTime, prevTime) {
-  if (prevTime === undefined) {
+  if (currentTime === 0 || currentTime === undefined || prevTime === undefined) {
     return "";
   }
 
@@ -388,7 +388,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var uplift = exports.uplift = function uplift(minutesToday, minutesYesterday) {
-  if (minutesYesterday === undefined) {
+  if (minutesToday === 0 || minutesToday === undefined || minutesYesterday === undefined) {
+
     return;
   }
 

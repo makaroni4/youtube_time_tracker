@@ -26,6 +26,10 @@ export const headerTodayTime = () => {
   return document.querySelector('.youtube-time-tracker__time');
 }
 
+export const statItems = () => {
+  return document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat');
+}
+
 export const todayTime = () => {
   return todayStat().querySelector(".ytt-stat__time");
 }

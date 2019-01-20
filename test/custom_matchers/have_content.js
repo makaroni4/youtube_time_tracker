@@ -8,7 +8,7 @@ export const toHaveContent = (node, content) => {
   } else {
     return {
       message: () =>
-        `node ${node} has no content ${content}`,
+        `node ${node} has content "${node.textContent.trim()}" but not "${content}"`,
       pass: false,
     };
   }
