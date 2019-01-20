@@ -59,7 +59,7 @@ const timerBlock = function() {
 
             <div class="youtube-time-tracker__rating-cta">
               <a href="http://bit.ly/rate-YTT"
-                 class="youtube-time-tracker__rating-button"
+                 class="youtube-time-tracker__rating-button js-ytt-rating"
                  target="_blank">
                 RATE IT
               </a>
@@ -80,19 +80,27 @@ const timerBlock = function() {
     logo.parentNode.insertBefore(timer, logo.nextSibling);
 
     const ratingBlock = document.querySelector(".youtube-time-tracker__rating");
+    const ratingLink = ratingBlock.querySelector(".js-ytt-rating");
     const closeLink = ratingBlock.querySelector(".js-hide-ytt-rating");
     const ratingCookie = "ytt-rating";
+    const disableRatingBlock = () => {
+      ratingBlock.remove();
+
+      setCookie(ratingCookie, true, 180);
+    }
 
     if(!getCookie(ratingCookie)) {
       ratingBlock.classList.add("youtube-time-tracker__rating--active");
     }
 
+    ratingBlock.addEventListener("click", function(e) {
+      disableRatingBlock();
+    });
+
     closeLink.addEventListener("click", function(e) {
       e.preventDefault();
 
-      ratingBlock.remove();
-
-      setCookie(ratingCookie, true, 180);
+      disableRatingBlock();
     });
   }
 
