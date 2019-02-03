@@ -108,7 +108,7 @@ const timerBlock = function() {
 }
 
 const upliftCssClass = function(currentTime, prevTime) {
-  if(currentTime === 0 || currentTime === undefined || prevTime === undefined) {
+  if(currentTime === 0 || currentTime === undefined || prevTime === undefined || prevTime < 5) {
     return "";
   }
 

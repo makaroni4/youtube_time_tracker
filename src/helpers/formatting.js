@@ -1,7 +1,8 @@
 export const uplift = (minutesToday, minutesYesterday) => {
   if(minutesToday === 0 ||
      minutesToday === undefined ||
-     minutesYesterday === undefined) {
+     minutesYesterday === undefined ||
+     minutesYesterday < 5) {
 
     return;
   }

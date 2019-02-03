@@ -176,6 +176,28 @@ describe('renderTimer', () => {
         expect(totalUplift()).not.toHaveClass("ytt-stat__uplift--active");
         expect(totalTime()).toHaveContent("Total since 2019: 1h 50min");
       });
+
+      describe('when previous time is less than 5 minutes', () => {
+        beforeEach(() => {
+          renderTimer({
+            "2019": 110.2,
+            "jan-2019": 110.2,
+            "2-2019": 110.2,
+            "2019-01-12": 4,
+            "2019-01-13": 110.2,
+            "installed_at": "2019-01-01",
+            "time_watched": 110.2
+          });
+        });
+
+        it('displays correct time for all items in hover', () => {
+          expect(statItems()).toHaveLength(5);
+
+          expect(todayTime()).toHaveContent("Today: 1h 50min");
+          expect(todayUplift()).toHaveContent("");
+          expect(todayUplift()).not.toHaveClass("ytt-stat__uplift--active");
+        });
+      });
     });
 
     describe('when trackerData is not passed', () => {
