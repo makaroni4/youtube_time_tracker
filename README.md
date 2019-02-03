@@ -17,7 +17,9 @@ Although local chrome.storage allows us to store [up to 5 Mb of data](https://de
   "2018": 10294, // previous year
   "dec-2018": 1248, // previous month
   "1-2019": 159, // previous week
-  "2019-01-12": 91 // yesterday
+  "2019-01-12": 91 // yesterday,
+  "time_watched": 10404.2 // total time watched,
+  "installed_at": "2019-01-01" // when extension was installed
 }
 ```
 
