@@ -32,7 +32,9 @@ const cleanUpOldKeys = function(timer) {
     yesterdayDate(),
     lastWeek(),
     lastMonth(),
-    lastYear()
+    lastYear(),
+    "installed_at",
+    "time_watched"
   ]);
 
   Object.keys(timer)
@@ -73,13 +75,21 @@ export const incrementTime = function(increment, callback) {
     const month = thisMonth();
     const year  = thisYear();
 
-    [today, week, month, year].forEach(key => {
+    if(!timer["time_watched"]) {
+      timer["time_watched"] = (timer[lastYear()] || 0) + (timer[year] || 0);
+    }
+
+    [today, week, month, year, "time_watched"].forEach(key => {
       if(timer[key]) {
         timer[key] += increment;
       } else {
         timer[key] = increment;
       }
     });
+
+    if(!timer["installed_at"]) {
+      timer["installed_at"] = today;
+    }
 
     cleanUpOldKeys(timer);
 

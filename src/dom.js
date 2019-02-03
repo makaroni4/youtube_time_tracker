@@ -163,6 +163,12 @@ const statsContent = function(timerData) {
   stats += renderStat(timerData, "This month", month, prevMonth);
   stats += renderStat(timerData, "This year", year, prevYear);
 
+  if(timerData["installed_at"]) {
+    const installedAt = new Date(timerData["installed_at"]);
+
+    stats += renderStat(timerData, `Total since ${installedAt.getFullYear()}`, "time_watched");
+  }
+
   return stats;
 }
 

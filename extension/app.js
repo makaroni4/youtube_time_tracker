@@ -228,6 +228,12 @@ var statsContent = function statsContent(timerData) {
   stats += renderStat(timerData, "This month", month, prevMonth);
   stats += renderStat(timerData, "This year", year, prevYear);
 
+  if (timerData["installed_at"]) {
+    var installedAt = new Date(timerData["installed_at"]);
+
+    stats += renderStat(timerData, 'Total since ' + installedAt.getFullYear(), "time_watched");
+  }
+
   return stats;
 };
 
@@ -480,7 +486,7 @@ var persistData = function persistData(timer, callback) {
 };
 
 var cleanUpOldKeys = function cleanUpOldKeys(timer) {
-  var allowedKeys = new Set([(0, _date.todayDate)(), (0, _date.thisWeek)(), (0, _date.thisMonth)(), (0, _date.thisYear)(), (0, _date.yesterdayDate)(), (0, _date.lastWeek)(), (0, _date.lastMonth)(), (0, _date.lastYear)()]);
+  var allowedKeys = new Set([(0, _date.todayDate)(), (0, _date.thisWeek)(), (0, _date.thisMonth)(), (0, _date.thisYear)(), (0, _date.yesterdayDate)(), (0, _date.lastWeek)(), (0, _date.lastMonth)(), (0, _date.lastYear)(), "installed_at", "time_watched"]);
 
   Object.keys(timer).filter(function (key) {
     return !allowedKeys.has(key);
@@ -522,13 +528,21 @@ var incrementTime = exports.incrementTime = function incrementTime(increment, ca
     var month = (0, _date.thisMonth)();
     var year = (0, _date.thisYear)();
 
-    [today, week, month, year].forEach(function (key) {
+    if (!timer["time_watched"]) {
+      timer["time_watched"] = (timer[(0, _date.lastYear)()] || 0) + (timer[year] || 0);
+    }
+
+    [today, week, month, year, "time_watched"].forEach(function (key) {
       if (timer[key]) {
         timer[key] += increment;
       } else {
         timer[key] = increment;
       }
     });
+
+    if (!timer["installed_at"]) {
+      timer["installed_at"] = today;
+    }
 
     cleanUpOldKeys(timer);
 

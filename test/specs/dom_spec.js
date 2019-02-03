@@ -12,7 +12,9 @@ import {
   todayUplift,
   weekUplift,
   monthUplift,
-  yearUplift
+  yearUplift,
+  totalTime,
+  totalUplift
 } from '../support/selectors';
 
 describe('renderTimer', () => {
@@ -30,7 +32,9 @@ describe('renderTimer', () => {
     "2019": 110.2,
     "jan-2019": 110.2,
     "2-2019": 110.2,
-    "2019-01-13": 110.2
+    "2019-01-13": 110.2,
+    "installed_at": "2019-01-01",
+    "time_watched": 110.2
   };
 
   describe('when chrome.storage has data', () => {
@@ -44,6 +48,8 @@ describe('renderTimer', () => {
         // no december data
         "2019": 100,
         "2018": 50,
+        "installed_at": "2019-01-01",
+        "time_watched": 400
       });
     });
 
@@ -72,7 +78,7 @@ describe('renderTimer', () => {
         it('displays time from chrome.storage data', () => {
           renderTimer();
 
-          expect(statItems()).toHaveLength(4);
+          expect(statItems()).toHaveLength(5);
 
           expect(todayTime()).toHaveContent("Today: 1h 40min");
           expect(todayUplift()).toHaveContent("+100%");
@@ -92,6 +98,8 @@ describe('renderTimer', () => {
           expect(yearUplift()).toHaveContent("+100%");
           expect(yearUplift()).toHaveClass("ytt-stat__uplift--active");
           expect(yearUplift()).toHaveClass("ytt-stat__uplift--red");
+
+          expect(totalUplift()).not.toHaveClass("ytt-stat__uplift--active");
         });
       });
 
@@ -120,6 +128,8 @@ describe('renderTimer', () => {
           expect(yearUplift()).toHaveClass("ytt-stat__uplift--active");
           expect(yearUplift()).toHaveClass("ytt-stat__uplift--red");
 
+          expect(totalUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
           tk.reset();
         });
       });
@@ -145,7 +155,7 @@ describe('renderTimer', () => {
       });
 
       it('displays correct time for all items in hover', () => {
-        expect(statItems()).toHaveLength(4);
+        expect(statItems()).toHaveLength(5);
 
         expect(todayTime()).toHaveContent("Today: 1h 50min");
         expect(todayUplift()).toHaveContent("");
@@ -162,6 +172,9 @@ describe('renderTimer', () => {
         expect(yearTime()).toHaveContent("This year: 1h 50min");
         expect(yearUplift()).toHaveContent("");
         expect(yearUplift()).not.toHaveClass("ytt-stat__uplift--active");
+
+        expect(totalUplift()).not.toHaveClass("ytt-stat__uplift--active");
+        expect(totalTime()).toHaveContent("Total since 2019: 1h 50min");
       });
     });
 

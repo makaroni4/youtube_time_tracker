@@ -22,6 +22,12 @@ const yearStat = () => {
   });
 }
 
+const totalWatched = () => {
+  return Array.from(document.querySelectorAll('.youtube-time-tracker__stats .ytt-stat')).find((el) => {
+    return el.textContent.includes("Total since");
+  });
+}
+
 export const headerTodayTime = () => {
   return document.querySelector('.youtube-time-tracker__time');
 }
@@ -46,6 +52,10 @@ export const yearTime = () => {
   return yearStat().querySelector(".ytt-stat__time");
 }
 
+export const totalTime = () => {
+  return totalWatched().querySelector(".ytt-stat__time");
+}
+
 export const todayUplift = () => {
   return todayStat().querySelector(".ytt-stat__uplift");
 }
@@ -60,4 +70,8 @@ export const monthUplift = () => {
 
 export const yearUplift = () => {
   return yearStat().querySelector(".ytt-stat__uplift");
+}
+
+export const totalUplift = () => {
+  return totalWatched().querySelector(".ytt-stat__uplift");
 }
