@@ -100,20 +100,13 @@ var _tracker = __webpack_require__(/*! ./tracker */ "./src/js/tracker.js");
 
 var _dom = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
 
-var heartbit = 6; // sec
-var heartbitsCount = 0;
+var HEARTBIT = 6; // sec
 
 (0, _dom.renderTimer)();
 
 setInterval(function () {
-  if (heartbitsCount % 10 === 0) {
-    (0, _tracker.incrementTime)(heartbit / 60, _dom.renderTimer);
-  } else {
-    (0, _tracker.incrementTime)(heartbit / 60);
-  }
-
-  heartbitsCount += 1;
-}, heartbit * 1000);
+  (0, _tracker.incrementTime)(HEARTBIT / 60, _dom.renderTimer);
+}, HEARTBIT * 1000);
 
 /***/ }),
 
