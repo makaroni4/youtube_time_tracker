@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node_modules/.bin/webpack --watch --mode=development --info-verbosity verbose",
-    "build": "node_modules/.bin/webpack --mode=production"
+    "start": "node_modules/.bin/webpack --watch --env.NODE_ENV=development --env.development --info-verbosity verbose",
+    "build": "node_modules/.bin/webpack --env.NODE_ENV=production --env.production"
   },
   "repository": {
     "type": "git",
