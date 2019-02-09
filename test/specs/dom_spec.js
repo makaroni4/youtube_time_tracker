@@ -1,6 +1,6 @@
 const tk = require('timekeeper');
 
-import { renderTimer } from '../../src/dom';
+import { renderTimer } from '../../src/js/dom';
 import { mockChromeStorage } from '../support/mock_chrome_storage';
 import {
   headerTodayTime,

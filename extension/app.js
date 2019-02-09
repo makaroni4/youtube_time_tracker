@@ -81,24 +81,24 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/app.js":
-/*!********************!*\
-  !*** ./src/app.js ***!
-  \********************/
+/***/ "./src/js/app.js":
+/*!***********************!*\
+  !*** ./src/js/app.js ***!
+  \***********************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
+var _tracker = __webpack_require__(/*! ./tracker */ "./src/js/tracker.js");
 
-var _dom = __webpack_require__(/*! ./dom */ "./src/dom.js");
+var _dom = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
 
 var heartbit = 6; // sec
 var heartbitsCount = 0;
@@ -117,10 +117,10 @@ setInterval(function () {
 
 /***/ }),
 
-/***/ "./src/dom.js":
-/*!********************!*\
-  !*** ./src/dom.js ***!
-  \********************/
+/***/ "./src/js/dom.js":
+/*!***********************!*\
+  !*** ./src/js/dom.js ***!
+  \***********************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -132,15 +132,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.renderTimer = undefined;
 
-var _formatting = __webpack_require__(/*! ./helpers/formatting */ "./src/helpers/formatting.js");
+var _formatting = __webpack_require__(/*! ./helpers/formatting */ "./src/js/helpers/formatting.js");
 
-var _date = __webpack_require__(/*! ./helpers/date */ "./src/helpers/date.js");
+var _date = __webpack_require__(/*! ./helpers/date */ "./src/js/helpers/date.js");
 
-var _tracker = __webpack_require__(/*! ./tracker */ "./src/tracker.js");
+var _tracker = __webpack_require__(/*! ./tracker */ "./src/js/tracker.js");
 
-var _cookie = __webpack_require__(/*! ./helpers/cookie */ "./src/helpers/cookie.js");
+var _cookie = __webpack_require__(/*! ./helpers/cookie */ "./src/js/helpers/cookie.js");
 
-var _log = __webpack_require__(/*! ./helpers/log */ "./src/helpers/log.js");
+var _log = __webpack_require__(/*! ./helpers/log */ "./src/js/helpers/log.js");
 
 var timerBlock = function timerBlock() {
   var logo = document.getElementById("logo");
@@ -264,10 +264,10 @@ var renderTimer = exports.renderTimer = function renderTimer(timerData) {
 
 /***/ }),
 
-/***/ "./src/helpers/cookie.js":
-/*!*******************************!*\
-  !*** ./src/helpers/cookie.js ***!
-  \*******************************/
+/***/ "./src/js/helpers/cookie.js":
+/*!**********************************!*\
+  !*** ./src/js/helpers/cookie.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -293,10 +293,10 @@ var getCookie = exports.getCookie = function getCookie(name) {
 
 /***/ }),
 
-/***/ "./src/helpers/date.js":
-/*!*****************************!*\
-  !*** ./src/helpers/date.js ***!
-  \*****************************/
+/***/ "./src/js/helpers/date.js":
+/*!********************************!*\
+  !*** ./src/js/helpers/date.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -388,10 +388,10 @@ var lastYear = exports.lastYear = function lastYear() {
 
 /***/ }),
 
-/***/ "./src/helpers/formatting.js":
-/*!***********************************!*\
-  !*** ./src/helpers/formatting.js ***!
-  \***********************************/
+/***/ "./src/js/helpers/formatting.js":
+/*!**************************************!*\
+  !*** ./src/js/helpers/formatting.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -430,10 +430,10 @@ var formatTime = exports.formatTime = function formatTime() {
 
 /***/ }),
 
-/***/ "./src/helpers/log.js":
-/*!****************************!*\
-  !*** ./src/helpers/log.js ***!
-  \****************************/
+/***/ "./src/js/helpers/log.js":
+/*!*******************************!*\
+  !*** ./src/js/helpers/log.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -451,10 +451,10 @@ var log = exports.log = function log(output) {
 
 /***/ }),
 
-/***/ "./src/tracker.js":
-/*!************************!*\
-  !*** ./src/tracker.js ***!
-  \************************/
+/***/ "./src/js/tracker.js":
+/*!***************************!*\
+  !*** ./src/js/tracker.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -466,9 +466,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.incrementTime = exports.readData = undefined;
 
-var _log = __webpack_require__(/*! ./helpers/log */ "./src/helpers/log.js");
+var _log = __webpack_require__(/*! ./helpers/log */ "./src/js/helpers/log.js");
 
-var _date = __webpack_require__(/*! ./helpers/date */ "./src/helpers/date.js");
+var _date = __webpack_require__(/*! ./helpers/date */ "./src/js/helpers/date.js");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -549,6 +549,30 @@ var incrementTime = exports.incrementTime = function incrementTime(increment, ca
     persistData(timer, callback);
   });
 };
+
+/***/ }),
+
+/***/ "./src/scss/app.scss":
+/*!***************************!*\
+  !*** ./src/scss/app.scss ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "app.css";
+
+/***/ }),
+
+/***/ 0:
+/*!*************************************************!*\
+  !*** multi ./src/js/app.js ./src/scss/app.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./src/js/app.js */"./src/js/app.js");
+module.exports = __webpack_require__(/*! ./src/scss/app.scss */"./src/scss/app.scss");
+
 
 /***/ })
 

@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: [
+    './src/js/app.js',
+    './src/scss/app.scss'
+  ],
   output: {
     path: path.join(__dirname, 'extension'),
     filename: 'app.js'
@@ -11,7 +14,33 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader'
-      }
+      },
+      {
+				test: /\.scss$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].css',
+						}
+					},
+					{
+						loader: 'extract-loader'
+					},
+					{
+						loader: 'css-loader?-url'
+					},
+					{
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [require('autoprefixer')]
+            }
+					},
+					{
+						loader: 'sass-loader'
+					}
+				]
+			}
     ]
   },
   optimization: {
@@ -21,7 +50,8 @@ module.exports = {
   watchOptions: {
     ignored: [
       'node_modules',
-      'extension/**/*.js'
+      'extension/**/*.js',
+      'extension/**/*.css'
     ],
     poll: 1000
   }

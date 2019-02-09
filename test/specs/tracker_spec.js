@@ -1,6 +1,6 @@
 const tk = require('timekeeper');
 
-import { readData, incrementTime } from '../../src/tracker';
+import { readData, incrementTime } from '../../src/js/tracker';
 import { mockChromeStorage } from '../support/mock_chrome_storage';
 
 describe('readData', () => {

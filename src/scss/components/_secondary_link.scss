@@ -1,0 +1,13 @@
+.secondary-link {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #606060 !important;
+  text-decoration: underline;
+
+  cursor: pointer;
+
+  &:hover {
+    color: #404040 !important;
+  }
+}

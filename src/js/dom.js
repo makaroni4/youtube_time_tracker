@@ -12,7 +12,6 @@ import {
 import { readData } from './tracker';
 import { getCookie, setCookie } from './helpers/cookie';
 import { log } from './helpers/log';
-
 const timerBlock = function() {
   const logo = document.getElementById("logo");
   let timer = document.getElementById("youtube-time-tracker");

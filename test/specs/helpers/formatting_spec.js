@@ -1,4 +1,4 @@
-import { uplift, formatTime } from '../../../src/helpers/formatting';
+import { uplift, formatTime } from '../../../src/js/helpers/formatting';
 
 describe('formatTime', () => {
   describe('when todays time is less than an hour', () => {

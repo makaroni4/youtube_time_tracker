@@ -17,7 +17,7 @@
         "app.js"
       ],
       "css": [
-        "styles/style.css"
+        "app.css"
       ],
       "run_at": "document_end"
     }

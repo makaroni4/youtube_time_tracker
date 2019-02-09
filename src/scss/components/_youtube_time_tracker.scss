@@ -1,0 +1,162 @@
+.youtube-time-tracker {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  line-height: 20px;
+  color: #0a0a0a !important;
+
+  &__body {
+    display: flex !important;
+  }
+
+  &__name {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #0a0a0a !important;
+  }
+
+  &__popup {
+    display: none;
+    box-sizing: border-box;
+    width: 300px;
+    position: absolute;
+    top: 90%;
+    left: 0;
+    z-index: 9999;
+
+    background-color: #FFF;
+  }
+
+  &__popup-body {
+    padding: 20px 20px;
+  }
+
+  &:hover &__popup {
+    display: block;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 2px;
+  }
+
+  &__stats {
+    margin-top: 28px;
+    padding: 0;
+
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #0a0a0a !important;
+
+    list-style: none;
+  }
+
+  &__stats li {
+    display: block;
+  }
+
+  &__stats li + li {
+    margin-top: 20px;
+  }
+
+  &__links {
+    text-align: right;
+  }
+
+  &__link {
+    text-decoration: underline;
+  }
+
+  &__link + &__link {
+    margin-left: 10px;
+  }
+
+  &__stopwatch-icon {
+    width: 16px !important;
+    height: 19px;
+    margin-right: 8px;
+    margin-top: -2px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/stopwatch.svg") !important;
+
+    opacity: 0.5;
+  }
+
+  &__time {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+
+    opacity: 0.6;
+  }
+
+  &__rating {
+    display: none;
+    padding: 20px;
+
+    border-top: 1px solid #dbdbdb;
+  }
+
+  &__rating--active {
+    display: block;
+  }
+
+  &__rating-description {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #0a0a0a !important;
+  }
+
+  &__rating-cta {
+    margin-top: 20px;
+  }
+
+  &__rating-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 16px 10px 40px;
+
+    border-radius: 2px;
+
+    background-color: #FD1A20;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFF;
+    text-decoration: none;
+    letter-spacing: .007px;
+    -webkit-font-smoothing: antialiased;
+
+    cursor: pointer;
+  }
+
+  &__rating-button:hover {
+    background-color: #e4090f;
+  }
+
+  &__rating-button:before {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    height: 16px;
+    width: 16px;
+    margin-top: -10px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/thumbs_up.svg") !important;
+
+    content: "";
+  }
+
+  &__rating-later {
+    margin-left: 10px;
+  }
+}

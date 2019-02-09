@@ -9,7 +9,7 @@ import {
   lastMonth,
   thisYear,
   lastYear
-} from '../../../src/helpers/date';
+} from '../../../src/js/helpers/date';
 
 beforeEach(() => {
   tk.freeze("Sun Jan 13 2019 20:38:45 GMT+0100 (Central European Standard Time)");

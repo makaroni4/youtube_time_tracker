@@ -1,0 +1,43 @@
+.ytt-stat {
+  display: flex;
+  justify-content: space-between;
+
+  &__uplift {
+    display: none;
+    align-items: center;
+  }
+
+  &__uplift--active {
+    display: flex;
+  }
+
+  &__uplift--red {
+    color: #FD1A20;
+  }
+
+  &__uplift--green {
+    color: #27AE60;
+  }
+
+  &__uplift:after {
+    position: relative;
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+    margin-left: 8px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    content: "";
+  }
+
+  &__uplift--red:after {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/red_triangle.svg");
+  }
+
+  &__uplift--green:after {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/green_triangle.svg");
+  }
+}
+

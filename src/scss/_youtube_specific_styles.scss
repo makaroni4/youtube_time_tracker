@@ -1,0 +1,14 @@
+[dark] .youtube-time-tracker {
+  color: #FFF !important;
+}
+
+[dark] .youtube-time-tracker__stopwatch-icon {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/stopwatch_white.svg") !important;
+}
+
+[dark] .youtube-time-tracker__stopwatch-icon,
+[dark] .youtube-time-tracker__time {
+  opacity: 1;
+
+  color: #FFF;
+}
