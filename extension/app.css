@@ -113,6 +113,32 @@
   .youtube-time-tracker__rating-later {
     margin-left: 10px; }
 
+.ytt-stat {
+  display: flex;
+  justify-content: space-between; }
+  .ytt-stat__uplift {
+    display: none;
+    align-items: center; }
+  .ytt-stat__uplift--active {
+    display: flex; }
+  .ytt-stat__uplift--red {
+    color: #FD1A20; }
+  .ytt-stat__uplift--green {
+    color: #27AE60; }
+  .ytt-stat__uplift:after {
+    position: relative;
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+    margin-left: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    content: ""; }
+  .ytt-stat__uplift--red:after {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/red_triangle.svg"); }
+  .ytt-stat__uplift--green:after {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/img/green_triangle.svg"); }
+
 [dark] .youtube-time-tracker {
   color: #FFF !important; }
 
