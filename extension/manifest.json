@@ -4,7 +4,7 @@
   "description": "Open source, privacy first extension that tracks time you spent watching YouTube™",
   "short_name": "YTimeTracker",
   "version": "0.11",
-  "author": "Anatoli Makarevich",
+  "author": "Abirami",
   "icons": {
     "128": "extension_icon.png"
   },
