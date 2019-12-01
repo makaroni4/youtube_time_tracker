@@ -1,10 +1,10 @@
-import { incrementTime } from './tracker';
-import { renderTimer } from './dom';
+import { incrementTime } from "./tracker";
+import { renderTimer, isPlayingMode } from "./dom";
 
 const HEARTBIT = 6; // sec
 
 renderTimer();
 
 setInterval(function() {
-  incrementTime(HEARTBIT / 60, renderTimer);
+  if (isPlayingMode()) incrementTime(HEARTBIT / 60, renderTimer);
 }, HEARTBIT * 1000);

@@ -11,13 +11,17 @@
 .youtube-time-tracker {
   position: relative;
   height: 100%;
+  display: -webkit-box;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
   font-size: 16px;
   line-height: 20px;
   color: #0a0a0a !important; }
   .youtube-time-tracker__body {
+    display: -webkit-box !important;
     display: flex !important; }
   .youtube-time-tracker__name {
     font-size: 16px;
@@ -114,12 +118,16 @@
     margin-left: 10px; }
 
 .ytt-stat {
+  display: -webkit-box;
   display: flex;
-  justify-content: space-between; }
+  -webkit-box-pack: justify;
+          justify-content: space-between; }
   .ytt-stat__uplift {
     display: none;
-    align-items: center; }
+    -webkit-box-align: center;
+            align-items: center; }
   .ytt-stat__uplift--active {
+    display: -webkit-box;
     display: flex; }
   .ytt-stat__uplift--red {
     color: #FD1A20; }
