@@ -1,4 +1,4 @@
-import { formatTime, uplift } from "./helpers/formatting";
+import { formatTime, uplift } from './helpers/formatting';
 import {
   todayDate,
   yesterdayDate,
@@ -8,16 +8,16 @@ import {
   lastMonth,
   thisYear,
   lastYear
-} from "./helpers/date";
-import { readData } from "./tracker";
-import { getCookie, setCookie } from "./helpers/cookie";
-import { log } from "./helpers/log";
+} from './helpers/date';
+import { readData } from './tracker';
+import { getCookie, setCookie } from './helpers/cookie';
+import { log } from './helpers/log';
 
 const timerBlock = function() {
   const logo = document.getElementById("logo");
   let timer = document.getElementById("youtube-time-tracker");
 
-  if (!timer) {
+  if(!timer) {
     timer = document.createElement("div");
 
     timer.innerHTML = `
@@ -37,7 +37,19 @@ const timerBlock = function() {
             <ul class="youtube-time-tracker__stats">
             </ul>
 
+            <div class="youtube-time-tracker__links">
+              <a class="youtube-time-tracker__link secondary-link"
+                href="https://github.com/makaroni4/youtube_time_tracker"
+                target="_blank">
+                Source code
+              </a>
 
+              <a class="youtube-time-tracker__link secondary-link"
+                href="http://bit.ly/YTT-feedback"
+                target="_blank">
+                Give feedback
+              </a>
+            </div>
           </div>
 
           <div class="youtube-time-tracker__rating">
@@ -75,9 +87,9 @@ const timerBlock = function() {
       ratingBlock.remove();
 
       setCookie(ratingCookie, true, 180);
-    };
+    }
 
-    if (!getCookie(ratingCookie)) {
+    if(!getCookie(ratingCookie)) {
       ratingBlock.classList.add("youtube-time-tracker__rating--active");
     }
 
@@ -93,32 +105,23 @@ const timerBlock = function() {
   }
 
   return timer;
-};
-
-export const isPlayingMode = () => {
-  return document.querySelector(".playing-mode");
-};
+}
 
 const upliftCssClass = function(currentTime, prevTime) {
-  if (
-    currentTime === 0 ||
-    currentTime === undefined ||
-    prevTime === undefined ||
-    prevTime < 5
-  ) {
+  if(currentTime === 0 || currentTime === undefined || prevTime === undefined || prevTime < 5) {
     return "";
   }
 
   let cssClass = "ytt-stat__uplift--active";
 
-  if (currentTime > prevTime) {
+  if(currentTime > prevTime) {
     cssClass += " ytt-stat__uplift--red";
   } else {
     cssClass += " ytt-stat__uplift--green";
   }
 
   return cssClass;
-};
+}
 
 const renderStat = function(timerData, name, key, prevKey) {
   let output = "";
@@ -132,10 +135,7 @@ const renderStat = function(timerData, name, key, prevKey) {
           ${name}: ${duration}
         </div>
 
-        <div class="ytt-stat__uplift ${upliftCssClass(
-          timerData[key],
-          timerData[prevKey]
-        )}">
+        <div class="ytt-stat__uplift ${upliftCssClass(timerData[key], timerData[prevKey])}">
           ${uplift(timerData[key], timerData[prevKey]) || ""}
         </div>
       </div>
@@ -143,7 +143,7 @@ const renderStat = function(timerData, name, key, prevKey) {
   `;
 
   return output;
-};
+}
 
 const statsContent = function(timerData) {
   const today = todayDate();
@@ -163,25 +163,21 @@ const statsContent = function(timerData) {
   stats += renderStat(timerData, "This month", month, prevMonth);
   stats += renderStat(timerData, "This year", year, prevYear);
 
-  if (timerData["installed_at"]) {
+  if(timerData["installed_at"]) {
     const installedAt = new Date(timerData["installed_at"]);
 
-    stats += renderStat(
-      timerData,
-      `Total since ${installedAt.getFullYear()}`,
-      "time_watched"
-    );
+    stats += renderStat(timerData, `Total since ${installedAt.getFullYear()}`, "time_watched");
   }
 
   return stats;
-};
+}
 
 export const renderTimer = function(timerData) {
-  log("--> renderTimer");
+  log('--> renderTimer');
 
   let logo = document.getElementById("logo");
 
-  if (logo) {
+  if(logo) {
     const timer = timerBlock();
     const timeBlock = timer.querySelector(".youtube-time-tracker__time");
     const statsBlock = timer.querySelector(".youtube-time-tracker__stats");
@@ -189,7 +185,7 @@ export const renderTimer = function(timerData) {
     const today = todayDate();
     const yesterday = yesterdayDate();
 
-    if (timerData) {
+    if(timerData) {
       timeBlock.innerHTML = formatTime(timerData[today]);
       statsBlock.innerHTML = statsContent(timerData);
     } else {
@@ -199,4 +195,4 @@ export const renderTimer = function(timerData) {
       });
     }
   }
-};
+}
