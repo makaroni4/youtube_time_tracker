@@ -196,3 +196,7 @@ export const renderTimer = function(timerData) {
     }
   }
 }
+
+export const isPlayingMode = () => {
+  return document.querySelector('.playing-mode');
+}
